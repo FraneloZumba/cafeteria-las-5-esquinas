@@ -648,14 +648,13 @@ function Footer() {
         <div className="footer-top">
           <div>
             <Brand />
-
             <p className="footer-copy">
               Café, comida y antojos para cualquier momento.
             </p>
           </div>
 
           <div className="footer-contact">
-            <a href="tel:+593983202196">
+            <a href="tel:0983202196">
               <Phone size={16} />
               0983202196
             </a>
@@ -664,29 +663,15 @@ function Footer() {
               className="button-primary"
               href={whatsapp}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noreferrer"
             >
-              Pedir por WhatsApp
-              <ArrowUpRight size={16} />
+              Pedir por WhatsApp <ArrowUpRight size={16} />
             </a>
           </div>
         </div>
 
         <div className="footer-bottom">
           <p>Demo / propuesta comercial no oficial</p>
-
-          <div className="footer-socials">
-            {socials.slice(0, 3).map(({ label, href }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {label}
-              </a>
-            ))}
-          </div>
         </div>
       </div>
     </footer>
