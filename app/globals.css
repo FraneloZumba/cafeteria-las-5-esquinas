@@ -1,0 +1,75 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background); --color-foreground: var(--foreground); --color-card: var(--card); --color-card-foreground: var(--card-foreground); --color-primary: var(--primary); --color-primary-foreground: var(--primary-foreground); --color-secondary: var(--secondary); --color-secondary-foreground: var(--secondary-foreground); --color-muted-foreground: var(--muted-foreground); --color-border: var(--border); --color-charcoal: var(--charcoal); --font-sans: 'Geist', 'Geist Fallback'; --font-serif: 'DM Serif Display', 'Georgia', serif;
+}
+
+:root { color-scheme: light; --background: oklch(0.95 0.018 78); --foreground: oklch(0.19 0.025 35); --card: oklch(0.985 0.012 78); --card-foreground: oklch(0.19 0.025 35); --primary: oklch(0.51 0.15 28); --primary-foreground: oklch(0.98 0.01 78); --secondary: oklch(0.88 0.035 76); --secondary-foreground: oklch(0.19 0.025 35); --muted-foreground: oklch(0.46 0.035 52); --border: oklch(0.78 0.04 70); --olive: oklch(0.48 0.055 105); --charcoal: oklch(0.18 0.022 35); }
+* { @apply border-border; }
+html { scroll-behavior: smooth; background: var(--background); }
+body { @apply bg-background text-foreground font-sans; }
+a { transition: color .25s ease, background-color .25s ease, transform .25s ease, border-color .25s ease; }
+a:hover { color: var(--primary); }
+.site-header { @apply fixed inset-x-0 top-0 z-50; color: var(--primary-foreground); background: linear-gradient(to bottom, rgba(22,19,17,.72), transparent); }
+.header-inner { @apply mx-auto flex h-20 max-w-7xl items-center justify-between px-5 lg:px-10; }
+.brand { @apply flex items-center gap-3; }
+.brand-light { color: var(--primary-foreground); }
+.brand-mark { @apply flex h-9 w-9 items-center justify-center rounded-full bg-primary font-serif text-xl italic text-primary-foreground; }
+.site-header nav a { @apply text-sm text-primary-foreground/80; }
+.site-header nav a:hover { @apply text-primary-foreground; }
+.mobile-toggle { @apply rounded-full border border-primary-foreground/30 p-2 text-primary-foreground; }
+.mobile-nav { @apply border-t border-primary-foreground/15 bg-charcoal px-5 py-5; }
+.mobile-nav a { @apply block py-2 text-primary-foreground; }
+.mobile-nav .button-primary { @apply mt-3 flex justify-center; }
+.button-primary { @apply inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground; }
+.button-primary:hover { @apply text-primary-foreground; transform: translateY(-2px); }
+.eyebrow { @apply text-xs font-semibold uppercase tracking-[.22em] text-muted-foreground; }
+.section-shell { @apply mx-auto max-w-7xl px-5 lg:px-10; }
+.hero-full { @apply relative flex min-h-[100svh] items-end overflow-hidden bg-charcoal; }
+.hero-photo { @apply object-cover; transform: scale(1.04); animation: slow-zoom 16s ease-out both; }
+.hero-overlay { @apply absolute inset-0; background: linear-gradient(90deg, rgba(19,16,14,.8), rgba(19,16,14,.18) 68%), linear-gradient(0deg, rgba(19,16,14,.78), transparent 65%); }
+.hero-content { @apply relative z-10 max-w-7xl px-5 pb-20 text-primary-foreground lg:px-10 lg:pb-24; }
+.hero-eyebrow { @apply text-primary-foreground/65; }
+.hero-title { @apply mt-5 text-[clamp(4rem,12vw,10rem)] leading-[.78] tracking-[-.07em]; }
+.hero-title span { @apply text-primary; }
+.hero-title i { @apply font-normal text-primary-foreground; }
+.hero-copy { @apply mt-8 max-w-sm text-base leading-7 text-primary-foreground/75; }
+.hero-cta { @apply mt-9 inline-flex items-center gap-3 border-b border-primary-foreground/60 pb-3 text-sm font-semibold text-primary-foreground; }
+.hero-cta:hover { @apply border-primary text-primary; }
+.hero-note { @apply absolute bottom-7 right-5 z-10 hidden text-right text-xs leading-5 text-primary-foreground/60 lg:block; }
+.intro-section { @apply border-y border-border bg-secondary/40; }
+.intro-grid { @apply grid gap-10 py-20 lg:grid-cols-[.7fr_1.3fr] lg:py-28; }
+.display-title { @apply mt-4 max-w-4xl font-serif text-4xl leading-[.98] tracking-[-.045em] md:text-6xl; }
+.body-copy { @apply mt-7 max-w-xl text-base leading-7 text-muted-foreground; }
+.specialties { @apply py-20 lg:py-28; }
+.section-heading { @apply flex flex-col justify-between gap-5 md:flex-row md:items-end; }
+.link-arrow { @apply inline-flex items-center gap-2 text-sm font-semibold; }
+.specialty-grid { @apply mt-10 grid gap-5 md:grid-cols-12 md:items-end; }
+.specialty-card { @apply relative overflow-hidden bg-charcoal; }
+.specialty-1 { @apply md:col-span-5 md:-translate-y-8; } .specialty-2 { @apply md:col-span-4; } .specialty-3 { @apply md:col-span-3 md:-translate-y-16; }
+.specialty-image { @apply relative aspect-[.82] overflow-hidden; }
+.specialty-2 .specialty-image { @apply aspect-[.72]; } .specialty-3 .specialty-image { @apply aspect-[.9]; }
+.specialty-caption { @apply absolute inset-x-0 bottom-0 z-10 p-5 text-primary-foreground; background: linear-gradient(transparent, rgba(19,16,14,.9)); }
+.specialty-caption h3 { @apply text-3xl; } .specialty-caption p { @apply mt-1 text-sm text-primary-foreground/70; }
+.menu-section { @apply bg-charcoal text-primary-foreground; }
+.menu-section .section-shell { @apply py-20 lg:py-28; }
+.menu-intro { @apply max-w-2xl; } .menu-intro .body-copy { @apply text-primary-foreground/60; }
+.menu-tabs { @apply mt-10 flex min-w-max gap-2 overflow-x-auto pb-2; }
+.menu-tabs button { @apply rounded-full border border-primary-foreground/20 px-4 py-2 text-sm text-primary-foreground/60; }
+.menu-tabs button:hover, .menu-tabs button.active { @apply border-primary bg-primary text-primary-foreground; }
+.menu-list { @apply mt-8 grid gap-x-12 md:grid-cols-2; }
+.menu-item { @apply flex items-start justify-between gap-4 border-b border-primary-foreground/10 py-5; } .menu-item h3 { @apply text-[15px] font-medium; } .menu-item p { @apply mt-1 max-w-sm text-xs leading-5 text-primary-foreground/45; } .menu-item span { @apply font-serif text-xl text-primary; }
+.menu-button { @apply mt-10; }
+.reviews { @apply grid gap-12 py-20 lg:grid-cols-[.7fr_1.3fr] lg:py-28; }
+.review-grid { @apply grid gap-5 md:grid-cols-2; } .review-card { @apply rounded-3xl bg-card p-6 md:p-8; } .review-card:nth-child(2) { @apply bg-secondary; } .stars { @apply flex gap-1 text-primary; } .review-card blockquote { @apply mt-7 font-serif text-2xl leading-tight; } .review-card figcaption { @apply mt-8 text-xs font-semibold uppercase tracking-[.15em] text-muted-foreground; }
+.location { @apply grid lg:grid-cols-2; } .location-image { @apply relative min-h-[380px] bg-charcoal lg:min-h-[520px]; } .location-copy { @apply flex flex-col justify-center bg-secondary px-5 py-16 lg:px-16; } .location-copy address { @apply mt-7 not-italic leading-7 text-muted-foreground; } .location-copy .button-primary { @apply mt-8 w-fit; }
+.final-cta { @apply flex flex-col items-center bg-primary px-5 py-24 text-center text-primary-foreground; } .final-cta .eyebrow { @apply text-primary-foreground/65; } .final-cta h2 { @apply mt-4 text-5xl tracking-[-.05em] md:text-7xl; } .final-cta .button-primary { @apply mt-8 bg-charcoal; }
+.footer { @apply bg-secondary; } .footer .section-shell { @apply py-16 lg:py-20; } .footer-top { @apply flex flex-col justify-between gap-10 md:flex-row; } .footer-copy { @apply mt-6 max-w-xs text-sm leading-6 text-muted-foreground; } .footer-contact { @apply flex flex-col gap-3 text-sm; } .footer-contact a:first-child { @apply flex items-center gap-2 font-medium; } .footer-contact .button-primary { @apply mt-2; } .footer-bottom { @apply mt-16 flex flex-col justify-between gap-6 border-t border-border pt-6 text-xs text-muted-foreground md:flex-row; } .footer-socials { @apply flex gap-5; }
+.social-rail { @apply fixed bottom-5 right-5 z-40 flex items-center gap-2 rounded-full border border-primary-foreground/15 bg-charcoal/90 p-2 text-primary-foreground shadow-xl backdrop-blur; } .social-rail a { @apply relative flex h-9 w-9 items-center justify-center rounded-full text-primary-foreground/75; } .social-rail a:hover { @apply bg-primary text-primary-foreground; } .social-rail .social-whatsapp { @apply bg-primary text-primary-foreground; }
+@keyframes slow-zoom { from { transform: scale(1.04); } to { transform: scale(1.12); } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition-duration: .01ms !important; } }
+@media (max-width: 640px) { .social-rail { @apply inset-x-4 bottom-4 justify-around rounded-2xl; } .social-rail a { @apply h-10 w-10; } }
