@@ -369,7 +369,7 @@ function Hero() {
         </h1>
 
         <p className="hero-copy">
-          Café, comida y antojos para cualquier momento.
+          Café, comida y antojitos cuencanos para cualquier momento.
         </p>
 
         <a href="#menu" className="hero-menu-button">
@@ -379,7 +379,7 @@ function Hero() {
       </div>
 
       <div className="hero-note">
-        Una propuesta gastronómica cercana
+        Una propuesta gastronómica
         <br />
         desde Ricaurte
       </div>
@@ -404,7 +404,7 @@ function Intro() {
           </h2>
 
           <p className="body-copy">
-            Una propuesta gastronómica que reúne café, desayunos,
+            Contamos con café, desayunos,
             especialidades, comida rápida, bebidas y más.
           </p>
         </div>
@@ -431,7 +431,7 @@ function Specialties() {
     >
       <div className="section-heading">
         <div>
-          <p className="eyebrow">Para elegir sin pensarlo tanto</p>
+          <p className="eyebrow">Para elegir sin pensarlo mucho</p>
 
           <h2 className="display-title">Especialidades</h2>
         </div>
@@ -487,7 +487,7 @@ function MenuSection() {
           <h2 className="display-title">El menú</h2>
 
           <p className="body-copy">
-            Sabores para cada momento del día, con precios claros y
+            Precios claros y
             opciones para todos los antojos.
           </p>
         </div>
