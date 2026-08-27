@@ -33,6 +33,29 @@ const socials = [
   },
 ]
 
+const socialShowcase = [
+  {
+    label: 'Facebook',
+    href: 'https://www.facebook.com/cafeterialas5esquinas/?locale=es_LA',
+    image: '/tazafb.png',
+  },
+  {
+    label: 'Instagram',
+    href: 'https://www.instagram.com/cafeterialas5esquinas',
+    image: '/tazaig.png',
+  },
+  {
+    label: 'TikTok',
+    href: 'https://www.tiktok.com/@las.5.esquinas',
+    image: '/tazatt.png',
+  },
+  {
+    label: 'WhatsApp',
+    href: whatsapp,
+    image: '/tazawa.png',
+  },
+]
+
 type MenuItem = {
   name: string
   price: string
@@ -739,7 +762,7 @@ function MenuSection() {
       <div className="menu-shell">
         <div className="menu-section-heading">
           <p className="menu-section-kicker">Nuestro menú</p>
-          <h2 className="menu-section-title">Elige con calma.</h2>
+          <h2 className="menu-section-title">Te presentamos todas las opciones que tenemos para tí.</h2>
         </div>
 
         <div className="menu-notebook">
@@ -976,63 +999,54 @@ function SocialSection() {
   return (
     <section
       id="redes"
-      className="social-section"
+      className="social-showcase"
     >
-      <div className="section-shell social-section-inner">
-        <div>
-          <p className="eyebrow">
-            Sigamos cerca
+      <div className="social-showcase-overlay" />
+
+      <div className="section-shell social-showcase-inner">
+        <div className="social-showcase-heading">
+          <p className="social-showcase-eyebrow">
+            YA QUE ESTÁS AQUÍ
           </p>
 
-          <h2 className="display-title">
-            Encuéntranos también en tus
-            redes.
+          <h2 className="social-showcase-title font-serif">
+            Síguenos en nuestras redes sociales
           </h2>
-
-          <p className="body-copy">
-            Esta sección queda lista para
-            usarse como destino del futuro
-            acceso de Wi-Fi para clientes.
-          </p>
         </div>
 
-        <div className="social-cards">
-          {socials.map(
-            ({
-              label,
-              href,
-            }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`social-card ${
-                  label ===
-                  'WhatsApp'
-                    ? 'social-card-whatsapp'
-                    : ''
-                }`}
-              >
-                <span className="social-card-icon">
-                  <SocialIcon
-                    label={
-                      label
-                    }
-                  />
-                </span>
-
-                <span>
-                  {label}
-                </span>
-
-                <ArrowUpRight
-                  size={18}
+        <div className="social-cup-grid">
+          {socialShowcase.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-cup-link"
+              aria-label={`Abrir ${item.label} de Las 5 Esquinas`}
+            >
+              <div className="social-cup-image-wrap">
+                <Image
+                  src={item.image}
+                  alt={`${item.label} de Las 5 Esquinas`}
+                  width={520}
+                  height={520}
+                  className="social-cup-image"
+                  sizes="(max-width: 640px) 44vw, (max-width: 1024px) 22vw, 20vw"
                 />
-              </a>
-            ),
-          )}
+              </div>
+
+              <span className="social-cup-label">
+                {item.label}
+              </span>
+            </a>
+          ))}
         </div>
+
+        <p className="social-showcase-closing font-serif">
+          y sigue con nosotros escribiendo
+          <br />
+          esta historia...
+        </p>
       </div>
     </section>
   )
@@ -1109,26 +1123,6 @@ export function Las5Esquinas() {
         <Location />
 
         <SocialSection />
-
-        <section className="final-cta">
-          <p className="eyebrow">
-            Cuando llegue el antojo
-          </p>
-
-          <h2 className="font-serif">
-            Aquí nos encontramos.
-          </h2>
-
-          <a
-            href={whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="button-primary"
-          >
-            Pedir por WhatsApp
-            <ArrowUpRight size={17} />
-          </a>
-        </section>
       </main>
 
       <Footer />
