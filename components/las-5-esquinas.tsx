@@ -885,44 +885,88 @@ function Location() {
   return (
     <section
       id="ubicacion"
-      className="location"
+      className="location-section"
     >
-      <div className="location-image">
-        <Image
-          src="/alitas-editorial.png"
-          alt="Imagen gastronómica de Las 5 Esquinas"
-          fill
-          className="object-cover"
-          sizes="(max-width: 1024px) 100vw, 50vw"
-        />
-      </div>
+      <div className="location-frame">
+        <div className="location-image">
+          <Image
+            src="/alitas-editorial.png"
+            alt="Plato servido en Las 5 Esquinas"
+            fill
+            className="object-cover"
+            sizes="(max-width: 900px) 100vw, 50vw"
+          />
+          <div className="location-image-overlay" />
+        </div>
 
-      <div className="location-copy">
-        <p className="eyebrow">
-          Encuéntranos
-        </p>
+        <div className="location-copy">
+          <p className="location-eyebrow">
+            ENCUÉNTRANOS
+          </p>
 
-        <h2 className="display-title">
-          Las 5 Esquinas
-        </h2>
+          <div className="location-main-info">
+            <div className="location-logo-wrap">
+              <Image
+                src="/logo-las-5-esquinas-dark.png"
+                alt="Las 5 Esquinas"
+                width={320}
+                height={260}
+                className="location-logo"
+              />
+            </div>
 
-        <address>
-          Ricaurte - 5 Esquinas
-          <br />
-          Vicente Pacheco 412
-          <br />
-          Cuenca, Ecuador
-        </address>
+            <address className="location-address">
+              Ricaurte - 5 Esquinas
+              <br />
+              Vicente Pacheco 412
+              <br />
+              Cuenca, Ecuador
+            </address>
+          </div>
 
-        <a
-          href={maps}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="button-primary"
-        >
-          Cómo llegar
-          <ArrowUpRight size={17} />
-        </a>
+          <a
+            href={maps}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="location-map-button"
+          >
+            <span>Cómo llegar</span>
+            <ArrowUpRight size={18} />
+          </a>
+
+          <div className="location-hours">
+            <div className="location-hours-heading">
+              <p className="location-hours-title">
+                Horarios de atención
+              </p>
+              <p className="location-hours-message">
+                Estamos felices de recibirte en estos horarios.
+              </p>
+            </div>
+
+            <div className="location-hours-list">
+              <div className="location-hours-row">
+                <span className="location-hours-days">
+                  Lun – Vie
+                </span>
+                <span className="location-hours-time">
+                  8:00 a.m. – 11:00 a.m.
+                  <br />
+                  3:00 p.m. – 10:00 p.m.
+                </span>
+              </div>
+
+              <div className="location-hours-row">
+                <span className="location-hours-days">
+                  Sáb – Dom
+                </span>
+                <span className="location-hours-time">
+                  3:00 p.m. – 10:00 p.m.
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   )
