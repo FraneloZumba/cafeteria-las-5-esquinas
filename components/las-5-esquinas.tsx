@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import {
   ArrowUpRight,
+  ChevronRight,
   Phone,
   Star,
 } from 'lucide-react'
@@ -295,6 +296,45 @@ const menu: Record<Category, MenuCategory> = {
     ],
   },
 }
+
+
+type MenuView =
+  | 'Tradicionales'
+  | 'Especialidades'
+  | 'Comida Rápida'
+  | 'Alitas'
+  | 'Bebidas'
+
+const menuViews: Record<
+  MenuView,
+  {
+    categories: Category[]
+    fallbackImage: string
+  }
+> = {
+  Tradicionales: {
+    categories: ['Tradicionales'],
+    fallbackImage: '/bolon-editorial.png',
+  },
+  Especialidades: {
+    categories: ['Especialidades'],
+    fallbackImage: '/tigrillo-editorial.png',
+  },
+  'Comida Rápida': {
+    categories: ['Comida rápida'],
+    fallbackImage: '/alitas-editorial.png',
+  },
+  Alitas: {
+    categories: ['Alitas de pollo'],
+    fallbackImage: '/alitas-editorial.png',
+  },
+  Bebidas: {
+    categories: ['Bebidas calientes', 'Bebidas frías'],
+    fallbackImage: '/cafe-editorial.png',
+  },
+}
+
+const menuViewNames = Object.keys(menuViews) as MenuView[]
 
 const houseHighlights = [
   {
@@ -668,148 +708,103 @@ function HouseHighlights() {
 }
 
 function MenuSection() {
-  const [
-    active,
-    setActive,
-  ] =
-    useState<Category>(
-      'Tradicionales',
-    )
+  const [active, setActive] = useState<MenuView>('Tradicionales')
+  const [startIndex, setStartIndex] = useState(0)
 
-  const activeCategory =
-    menu[active]
+  const activeView = menuViews[active]
+  const activeItems = activeView.categories.flatMap(
+    (category) => menu[category].items,
+  )
+
+  const visibleItems = Array.from(
+    { length: Math.min(3, activeItems.length) },
+    (_, offset) => activeItems[(startIndex + offset) % activeItems.length],
+  )
+
+  const chooseCategory = (category: MenuView) => {
+    setActive(category)
+    setStartIndex(0)
+  }
+
+  const showNext = () => {
+    setStartIndex((current) =>
+      activeItems.length > 0
+        ? (current + 1) % activeItems.length
+        : 0,
+    )
+  }
 
   return (
-    <section
-      id="menu"
-      className="menu-section"
-    >
-      <div className="section-shell">
-        <div className="menu-intro">
-          <p className="eyebrow text-primary">
-            Nuestro menú
-          </p>
-
-          <h2 className="display-title">
-            Elige con calma.
-          </h2>
-
-          <p className="body-copy">
-            Explora por categorías. Cuando
-            tengamos las fotografías
-            finales del local, cada producto
-            podrá mostrar su imagen real
-            directamente aquí.
-          </p>
+    <section id="menu" className="menu-section">
+      <div className="menu-shell">
+        <div className="menu-section-heading">
+          <p className="menu-section-kicker">Nuestro menú</p>
+          <h2 className="menu-section-title">Elige con calma.</h2>
         </div>
 
-        <div
-          className="menu-tabs"
-          role="tablist"
-          aria-label="Categorías del menú"
-        >
-          {(
-            Object.keys(
-              menu,
-            ) as Category[]
-          ).map((cat) => (
-            <button
-              key={cat}
-              type="button"
-              role="tab"
-              aria-selected={
-                active === cat
-              }
-              onClick={() =>
-                setActive(cat)
-              }
-              className={
-                active === cat
-                  ? 'active'
-                  : ''
-              }
+        <div className="menu-notebook">
+          <div className="menu-notebook-top">
+            <p className="menu-hand-title">Elige con calma.</p>
+
+            <div
+              className="menu-notebook-tabs"
+              role="tablist"
+              aria-label="Categorías del menú"
             >
-              {cat}
-            </button>
-          ))}
-        </div>
-
-        <div className="menu-category-layout">
-          <aside className="menu-category-visual">
-            <div className="menu-category-image">
-              <Image
-                src={
-                  activeCategory.image
-                }
-                alt={`Imagen de apoyo para ${active}`}
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 38vw"
-              />
-
-              <div className="menu-category-image-overlay" />
-
-              <div className="menu-category-caption">
-                <p>
-                  {active}
-                </p>
-
-                <span>
-                  {
-                    activeCategory.intro
-                  }
-                </span>
-              </div>
-            </div>
-          </aside>
-
-          <div className="menu-list">
-            {activeCategory.items.map(
-              (item) => (
-                <article
-                  key={`${item.name}-${item.price}`}
-                  className="menu-item"
+              {menuViewNames.map((category) => (
+                <button
+                  key={category}
+                  type="button"
+                  role="tab"
+                  aria-selected={active === category}
+                  onClick={() => chooseCategory(category)}
+                  className={active === category ? 'active' : ''}
                 >
-                  {item.image && (
-                    <div className="menu-item-image">
-                      <Image
-                        src={
-                          item.image
-                        }
-                        alt={
-                          item.name
-                        }
-                        fill
-                        className="object-cover"
-                        sizes="96px"
-                      />
-                    </div>
-                  )}
+                  {category}
+                </button>
+              ))}
+            </div>
+          </div>
 
-                  <div className="menu-item-content">
-                    <div className="menu-item-heading">
-                      <h3>
-                        {item.name}
-                      </h3>
+          <div className="menu-products-window" aria-live="polite">
+            <div className="menu-products-grid">
+              {visibleItems.map((item, offset) => (
+                <article
+                  key={`${active}-${startIndex}-${item.name}-${offset}`}
+                  className="menu-product-card"
+                >
+                  <div className="menu-product-image">
+                    <Image
+                      src={item.image ?? activeView.fallbackImage}
+                      alt={item.name}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 700px) 82vw, (max-width: 1100px) 31vw, 290px"
+                    />
+                  </div>
 
-                      <span>
-                        {
-                          item.price
-                        }
-                      </span>
+                  <div className="menu-product-copy">
+                    <div className="menu-product-topline">
+                      <h3>{item.name}</h3>
+                      <span>{item.price}</span>
                     </div>
 
                     {item.description && (
-                      <p>
-                        {
-                          item.description
-                        }
-                      </p>
+                      <p>{item.description}</p>
                     )}
                   </div>
                 </article>
-              ),
-            )}
+              ))}
+            </div>
+
+            <button
+              type="button"
+              className="menu-next-button"
+              onClick={showNext}
+              aria-label="Ver siguientes productos"
+            >
+              <ChevronRight size={42} strokeWidth={2.6} />
+            </button>
           </div>
         </div>
 
@@ -817,10 +812,10 @@ function MenuSection() {
           href={whatsapp}
           target="_blank"
           rel="noopener noreferrer"
-          className="button-primary menu-button"
+          className="menu-whatsapp-button"
         >
           Pedir por WhatsApp
-          <ArrowUpRight size={17} />
+          <ArrowUpRight size={16} />
         </a>
       </div>
     </section>

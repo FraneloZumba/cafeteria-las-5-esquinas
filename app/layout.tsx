@@ -1,5 +1,5 @@
 import { Analytics } from '@vercel/analytics/next'
-import { Geist, DM_Serif_Display } from 'next/font/google'
+import { Geist, DM_Serif_Display, Sue_Ellen_Francisco } from 'next/font/google'
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
@@ -12,6 +12,12 @@ const dmSerif = DM_Serif_Display({
   subsets: ['latin'],
   weight: '400',
   variable: '--font-dm-serif',
+})
+
+const sueEllen = Sue_Ellen_Francisco({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-sue-ellen',
 })
 
 export const metadata: Metadata = {
@@ -35,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="es" className="bg-background">
       <body
-        className={`${geist.variable} ${dmSerif.variable} antialiased`}
+        className={`${geist.variable} ${dmSerif.variable} ${sueEllen.variable} antialiased`}
       >
         {children}
 
