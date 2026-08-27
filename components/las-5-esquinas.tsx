@@ -3,12 +3,9 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import {
-  ArrowDown,
   ArrowUpRight,
-  Menu as MenuIcon,
   Phone,
   Star,
-  X,
 } from 'lucide-react'
 
 const whatsapp = 'https://wa.me/593983202196'
@@ -35,109 +32,295 @@ const socials = [
   },
 ]
 
-const menu = {
-  Menú: [
-    ['Tamal de pollo', '$0,90'],
-    ['Humita', '$1,00'],
-    ['Humita frita', '$1,35'],
-    ['Quimbolito', '$1,00'],
-    ['Tortilla de yuca', '$1,25'],
-    ['Tortilla de choclo', '$1,00'],
-    ['Emborrajados', '$2,00'],
-    ['Tostada sencilla', '$1,25'],
-    ['Tostada mixta', '$1,50'],
-  ],
+type MenuItem = {
+  name: string
+  price: string
+  description?: string
+  image?: string
+}
 
-  Especialidades: [
-    ['Bolón', '$1,25', 'queso o chicharrón'],
-    ['Bolón Mixto', '$1,50', 'queso + chicharrón'],
-    ['Bolón de Queso o Chicharrón + Carne', '$2,50'],
-    ['Bolón Mixto + Carne', '$2,75'],
-    [
-      'Bolón Especial',
-      '$2,75',
-      'queso o chicharrón + tocino + mozzarella + ensalada + salsas',
-    ],
-    [
-      'Bolón Especial',
-      '$3,00',
-      'queso o chicharrón + tocino + mozzarella + ensalada + huevo + salsas',
-    ],
-    [
-      'Bolón Especial Mixto',
-      '$3,25',
-      'mixto + tocino + mozzarella + huevo + ensalada + salsas',
-    ],
-    ['Tigrillo con Queso o Chicharrón', '$2,75'],
-    ['Tigrillo con Queso o Chicharrón + Carne', '$3,25'],
-    ['Tigrillo Completo', '$4,00', 'carne + chorizo + huevo + queso'],
-  ],
+type MenuCategory = {
+  intro: string
+  image: string
+  items: MenuItem[]
+}
 
-  'Comida rápida': [
-    ['Hamburguesa especial', '$3,00'],
-    ['Hamburguesa normal', '$2,50'],
-    ['Hot Dog de 32 cm', '$3,25'],
-    ['Hot Dog normal', '$2,00'],
-    ['Cubano', '$2,50'],
-    ['Papipollo', '$2,50'],
-    ['Arroz con pollo broaster', '$3,00'],
-    ['Seco de carne', '$3,00'],
-    ['Salchipapa', '$1,25'],
-  ],
+type Category =
+  | 'Tradicionales'
+  | 'Especialidades'
+  | 'Comida rápida'
+  | 'Alitas de pollo'
+  | 'Bebidas calientes'
+  | 'Bebidas frías'
 
-  'Alitas de pollo': [
-    [
-      'Combo 1',
-      '$4,25',
-      '5 alitas + papas + tomate + salsas · BBQ, Miel & Mostaza, Maracuyá, Búfalo',
+const menu: Record<Category, MenuCategory> = {
+  Tradicionales: {
+    intro: 'Sabores sencillos y conocidos para disfrutar sin prisa.',
+    image: '/bolon-editorial.png',
+    items: [
+      {
+        name: 'Tamal de pollo',
+        price: '$1,00',
+      },
+      {
+        name: 'Humita',
+        price: '$1,00',
+      },
+      {
+        name: 'Humita frita',
+        price: '$1,50',
+      },
+      {
+        name: 'Tortilla de yuca',
+        price: '$1,25',
+      },
+      {
+        name: 'Tostada',
+        price: '$1,50',
+      },
     ],
-    [
-      'Combo 2',
-      '$8,00',
-      '10 alitas + papas + tomate + salsas · BBQ, Miel & Mostaza, Maracuyá, Búfalo',
-    ],
-    [
-      'Combo 3',
-      '$11,50',
-      '15 alitas + papas + tomate + salsas · BBQ, Miel & Mostaza, Maracuyá, Búfalo',
-    ],
-    [
-      'Combo 4',
-      '$15,00',
-      '20 alitas + papas + tomate + salsas · BBQ, Miel & Mostaza, Maracuyá, Búfalo',
-    ],
-    [
-      'Combo 5',
-      '$19,25',
-      '25 alitas + papas + tomate + salsas · BBQ, Miel & Mostaza, Maracuyá, Búfalo',
-    ],
-  ],
+  },
 
-  'Bebidas calientes': [
-    ['Tinto (Café Pasado)', '$0,80'],
-    ['Chocolate', '$1,50'],
-    ['Colada Morada', '$1,50'],
-    ['Morocho', '$1,25'],
-    ['Aguas aromáticas', '', 'Horchata · Manzanilla · Cedrón · Anís'],
-  ],
+  Especialidades: {
+    intro: 'Bolones y tigrillos, con opciones para elegir a tu manera.',
+    image: '/tigrillo-editorial.png',
 
-  Extras: [
-    ['Huevo frito', '$0,75'],
-    ['Presa de pollo', '$1,75'],
-    ['Porción de arroz', '$2,00'],
-    ['Porción de papa', '$1,50'],
-    ['Porción de carne', '$1,25'],
-    ['Porción de queso', '$0,50'],
-    ['Arroz dorado con chuleta', '$4,50'],
-  ],
-} as const
+    items: [
+      {
+        name: 'Bolón',
+        price: '$1,25',
+        description: 'Queso o chicharrón',
+        image: '/bolon-editorial.png',
+      },
+      {
+        name: 'Bolón mixto',
+        price: '$1,50',
+        description: 'Queso + chicharrón',
+      },
+      {
+        name: 'Bolón de queso o chicharrón + carne',
+        price: '$3,00',
+      },
+      {
+        name: 'Bolón mixto + carne',
+        price: '$3,25',
+      },
+      {
+        name: 'Bolón especial',
+        price: '$3,00',
+        description:
+          'Queso o chicharrón + tocino + mozzarella + ensalada + salsas',
+      },
+      {
+        name: 'Bolón especial + huevo',
+        price: '$3,25',
+        description:
+          'Queso o chicharrón + tocino + mozzarella + ensalada + huevo + salsas',
+      },
+      {
+        name: 'Bolón especial mixto + huevo',
+        price: '$3,50',
+        description:
+          'Mixto + tocino + mozzarella + huevo + ensalada + salsas',
+      },
+      {
+        name: 'Tigrillo',
+        price: '$3,25',
+        image: '/tigrillo-editorial.png',
+      },
+      {
+        name: 'Tigrillo + carne',
+        price: '$3,75',
+      },
+      {
+        name: 'Tigrillo completo',
+        price: '$4,75',
+        description: 'Carne + chorizo + huevo + queso',
+      },
+    ],
+  },
 
-type Category = keyof typeof menu
+  'Comida rápida': {
+    intro: 'Opciones para cuando el antojo pide algo más contundente.',
+    image: '/alitas-editorial.png',
 
-/* ─────────────────────────────────────────────
-   ICONOS SOCIALES
-   SVG inline para no añadir dependencias.
-───────────────────────────────────────────── */
+    items: [
+      {
+        name: 'Hamburguesa especial',
+        price: '$3,75',
+      },
+      {
+        name: 'Hamburguesa normal',
+        price: '$3,00',
+      },
+      {
+        name: 'Hot Dog de 32 cm',
+        price: '$3,75',
+      },
+      {
+        name: 'Hot Dog normal',
+        price: '$2,50',
+      },
+      {
+        name: 'Cubano',
+        price: '$3,25',
+      },
+      {
+        name: 'Papipollo',
+        price: '$2,75',
+      },
+      {
+        name: 'Arroz con pollo broaster',
+        price: '$3,50',
+      },
+      {
+        name: 'Seco de carne',
+        price: '$3,25',
+      },
+      {
+        name: 'Salchipapa',
+        price: '$2,00',
+      },
+    ],
+  },
+
+  'Alitas de pollo': {
+    intro:
+      'Elige tu cantidad y tu sabor. La porción de papas se ajusta al tamaño de cada combo.',
+
+    image: '/alitas-editorial.png',
+
+    items: [
+      {
+        name: 'Combo 1 · 5 alitas',
+        price: '$4,70',
+        description:
+          'BBQ · Miel & Mostaza · Maracuyá · Búfalo · Piña · Queso + papas + tomate + salsas',
+        image: '/alitas-editorial.png',
+      },
+      {
+        name: 'Combo 2 · 10 alitas',
+        price: '$8,90',
+        description:
+          'BBQ · Miel & Mostaza · Maracuyá · Búfalo · Piña · Queso + papas + tomate + salsas',
+      },
+      {
+        name: 'Combo 3 · 15 alitas',
+        price: '$12,70',
+        description:
+          'BBQ · Miel & Mostaza · Maracuyá · Búfalo · Piña · Queso + papas + tomate + salsas',
+      },
+      {
+        name: 'Combo 4 · 20 alitas',
+        price: '$16,70',
+        description:
+          'BBQ · Miel & Mostaza · Maracuyá · Búfalo · Piña · Queso + papas + tomate + salsas',
+      },
+      {
+        name: 'Combo 5 · 25 alitas',
+        price: '$20,75',
+        description:
+          'BBQ · Miel & Mostaza · Maracuyá · Búfalo · Piña · Queso + papas + tomate + salsas',
+      },
+    ],
+  },
+
+  'Bebidas calientes': {
+    intro: 'Para acompañar la conversación y quedarse un poco más.',
+
+    image: '/cafe-editorial.png',
+
+    items: [
+      {
+        name: 'Tinto',
+        price: '$1,00',
+        description: 'Café pasado',
+        image: '/cafe-editorial.png',
+      },
+      {
+        name: 'Chocolate',
+        price: '$1,75',
+      },
+      {
+        name: 'Colada morada',
+        price: '$1,75',
+      },
+      {
+        name: 'Morocho',
+        price: '$1,50',
+      },
+      {
+        name: 'Aguas aromáticas',
+        price: '$1,00',
+        description:
+          'Horchata · Manzanilla · Cedrón · Hierba Luisa',
+      },
+    ],
+  },
+
+  'Bebidas frías': {
+    intro: 'Jugos, batidos y bebidas para refrescar el momento.',
+
+    image: '/cafe-editorial.png',
+
+    items: [
+      {
+        name: 'Jugo de coco',
+        price: '$1,25',
+      },
+      {
+        name: 'Jugo de mora',
+        price: '$1,50',
+      },
+      {
+        name: 'Jugo de tomate',
+        price: '$1,50',
+      },
+      {
+        name: 'Batido de mora',
+        price: '$1,75',
+      },
+      {
+        name: 'Batido de fresa',
+        price: '$1,75',
+      },
+      {
+        name: 'Batido de tomate',
+        price: '$1,75',
+      },
+      {
+        name: 'Colas',
+        price: '$0,80',
+      },
+    ],
+  },
+}
+
+const houseHighlights = [
+  {
+    name: 'Bolón de Las 5 Esquinas',
+    price: '$4,75',
+    description:
+      'Bolón mixto bañado en salsa de queso, con mozzarella, cheddar, tocino crocante, huevo frito y toque de sal prieta.',
+    image: '/bolon-editorial.png',
+  },
+
+  {
+    name: 'Tigrillo completo',
+    price: '$4,75',
+    description:
+      'Carne + chorizo + huevo + queso.',
+    image: '/tigrillo-editorial.png',
+  },
+
+  {
+    name: 'Café de origen en chuspa',
+    price: '$2,90',
+    description:
+      'Hecho como antes, en tela y sin prisa. Se sirve con la chuspa, la taza y el agua caliente para disfrutarlo como siempre fue.',
+    image: '/cafe-editorial.png',
+  },
+]
 
 function InstagramIcon() {
   return (
@@ -148,9 +331,27 @@ function InstagramIcon() {
       stroke="currentColor"
       strokeWidth="1.8"
     >
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+      <rect
+        x="3"
+        y="3"
+        width="18"
+        height="18"
+        rx="5"
+      />
+
+      <circle
+        cx="12"
+        cy="12"
+        r="4"
+      />
+
+      <circle
+        cx="17.5"
+        cy="6.5"
+        r="1"
+        fill="currentColor"
+        stroke="none"
+      />
     </svg>
   )
 }
@@ -191,31 +392,47 @@ function WhatsAppIcon() {
   )
 }
 
-/* ─────────────────────────────────────────────
-   MARCA
-───────────────────────────────────────────── */
+function SocialIcon({
+  label,
+}: {
+  label: string
+}) {
+  if (label === 'Instagram') {
+    return <InstagramIcon />
+  }
 
-function Brand({ light = false }: { light?: boolean }) {
+  if (label === 'Facebook') {
+    return <FacebookIcon />
+  }
+
+  if (label === 'TikTok') {
+    return <TikTokIcon />
+  }
+
+  return <WhatsAppIcon />
+}
+
+function Brand({
+  light = false,
+}: {
+  light?: boolean
+}) {
   return (
     <a
       href="#inicio"
       className={`brand ${light ? 'brand-light' : ''}`}
-      aria-label="Cafetería Las 5 Esquinas, inicio"
+      aria-label="Las 5 Esquinas, inicio"
     >
-      <span className="brand-mark">5</span>
+      <span className="brand-mark">
+        5
+      </span>
 
-      <span className="font-serif text-[15px] font-semibold leading-[0.92] tracking-[-.02em]">
-        Cafetería
-        <br />
-        <em className="not-italic text-primary">Las 5 Esquinas</em>
+      <span className="brand-name">
+        Las 5 Esquinas
       </span>
     </a>
   )
 }
-
-/* ─────────────────────────────────────────────
-   REDES SOCIALES
-───────────────────────────────────────────── */
 
 function SocialRail() {
   return (
@@ -223,189 +440,162 @@ function SocialRail() {
       className="social-rail"
       aria-label="Redes sociales y contacto"
     >
-      <a
-        href={socials[0].href}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Instagram"
-        title="Instagram"
-      >
-        <InstagramIcon />
-      </a>
-
-      <a
-        href={socials[1].href}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Facebook"
-        title="Facebook"
-      >
-        <FacebookIcon />
-      </a>
-
-      <a
-        href={socials[2].href}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="TikTok"
-        title="TikTok"
-      >
-        <TikTokIcon />
-      </a>
-
-      <a
-        href={socials[3].href}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="WhatsApp"
-        title="WhatsApp"
-        className="social-whatsapp"
-      >
-        <WhatsAppIcon />
-      </a>
+      {socials.map(
+        ({
+          label,
+          href,
+        }) => (
+          <a
+            key={label}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={label}
+            title={label}
+            className={
+              label === 'WhatsApp'
+                ? 'social-whatsapp'
+                : ''
+            }
+          >
+            <SocialIcon
+              label={label}
+            />
+          </a>
+        ),
+      )}
     </div>
   )
 }
 
-/* ─────────────────────────────────────────────
-   HEADER
-───────────────────────────────────────────── */
-
 function Header() {
-  const [open, setOpen] = useState(false)
-
   return (
     <header className="site-header">
       <div className="header-inner">
         <Brand light />
 
         <nav
-          className="hidden items-center gap-7 md:flex"
+          className="desktop-nav"
           aria-label="Navegación principal"
         >
-          <a href="#presentacion">Nosotros</a>
-          <a href="#especialidades">Especialidades</a>
-          <a href="#menu">Menú</a>
-          <a href="#ubicacion">Ubicación</a>
-        </nav>
-
-        <button
-          type="button"
-          className="mobile-toggle md:hidden"
-          onClick={() => setOpen(!open)}
-          aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
-          aria-expanded={open}
-        >
-          {open ? <X size={22} /> : <MenuIcon size={22} />}
-        </button>
-      </div>
-
-      {open && (
-        <nav
-          className="mobile-nav md:hidden"
-          aria-label="Navegación móvil"
-        >
-          <a onClick={() => setOpen(false)} href="#presentacion">
+          <a href="#presentacion">
             Nosotros
           </a>
 
-          <a onClick={() => setOpen(false)} href="#especialidades">
-            Especialidades
+          <a href="#de-la-casa">
+            De la casa
           </a>
 
-          <a onClick={() => setOpen(false)} href="#menu">
+          <a href="#menu">
             Menú
           </a>
 
-          <a onClick={() => setOpen(false)} href="#ubicacion">
+          <a href="#ubicacion">
             Ubicación
           </a>
 
-          <a
-            onClick={() => setOpen(false)}
-            href={whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="button-primary"
-          >
-            Pedir por WhatsApp
-            <ArrowUpRight size={16} />
+          <a href="#redes">
+            Redes
           </a>
         </nav>
-      )}
+      </div>
     </header>
   )
 }
 
-/* ─────────────────────────────────────────────
-   HERO
-───────────────────────────────────────────── */
-
 function Hero() {
   return (
-    <section id="inicio" className="hero-full">
+    <section
+      id="inicio"
+      className="hero-full"
+    >
       <Image
         src="/cafe-editorial.png"
-        alt="Café servido en Cafetería Las 5 Esquinas"
+        alt=""
         fill
         priority
+        aria-hidden="true"
         className="hero-photo"
         sizes="100vw"
       />
 
       <div className="hero-overlay" />
 
-      <div className="hero-content">
-        <p className="eyebrow hero-eyebrow">
-          Ricaurte · Cuenca, Ecuador
-        </p>
+      <p className="hero-location">
+        RICAURTE • CUENCA, ECUADOR
+      </p>
 
-        <h1 className="hero-title font-serif">
-          Cafetería
-          <br />
-          <span>Las 5</span>
-          <br />
-          <i>Esquinas</i>
-        </h1>
+      <div className="hero-center">
+        <div
+          className="hero-logo-wrap"
+          aria-label="Las 5 Esquinas"
+        >
+          <Image
+            src="/logo-las-5-esquinas-light.png"
+            alt="Las 5 Esquinas"
+            width={900}
+            height={900}
+            priority
+            className="hero-logo"
+          />
+        </div>
 
         <p className="hero-copy">
-          Café, comida y antojitos cuencanos para cualquier momento.
+          Un lugar para comer,
+          conversar sin
+          <br className="hidden sm:block" />{' '}
+          prisa y quedarse un poco
+          más.
         </p>
 
-        <a href="#menu" className="hero-menu-button">
-          <span>MENÚ</span>
-          <ArrowDown size={23} strokeWidth={2.2} />
+        <a
+          href="#menu"
+          className="hero-menu-button"
+        >
+          VER MENÚ
         </a>
-      </div>
-
-      <div className="hero-note">
-        Una propuesta gastronómica
-        <br />
-        desde Ricaurte
       </div>
     </section>
   )
 }
 
-/* ─────────────────────────────────────────────
-   INTRO
-───────────────────────────────────────────── */
-
 function Intro() {
   return (
-    <section id="presentacion" className="intro-section">
+    <section
+      id="presentacion"
+      className="intro-section"
+    >
       <div className="section-shell intro-grid">
-        <p className="eyebrow">La mesa está servida</p>
+        <div className="intro-brand-block">
+          <p className="eyebrow">
+            Bienvenidos
+          </p>
+
+          <Image
+            src="/logo-las-5-esquinas-dark.png"
+            alt="Las 5 Esquinas"
+            width={520}
+            height={520}
+            className="intro-logo"
+          />
+        </div>
 
         <div>
           <h2 className="display-title">
-            Un lugar para empezar el día, hacer una pausa o resolver el
-            antojo.
+            Un punto de encuentro para
+            sentirse en casa.
           </h2>
 
           <p className="body-copy">
-            Contamos con café, desayunos,
-            especialidades, comida rápida, bebidas y más.
+            Las 5 Esquinas es un espacio
+            pensado para sentirse en casa,
+            donde puedes empezar el día con
+            un buen café o volver más tarde
+            para compartir algo rico,
+            conversar sin prisa y quedarte
+            un poco más. Más que un lugar
+            para comer, somos un punto de
+            encuentro.
           </p>
         </div>
       </div>
@@ -413,82 +603,111 @@ function Intro() {
   )
 }
 
-/* ─────────────────────────────────────────────
-   ESPECIALIDADES
-───────────────────────────────────────────── */
-
-function Specialties() {
-  const cards = [
-    ['Bolón', 'Tradición que reconforta', '/bolon-editorial.png'],
-    ['Tigrillo', 'Un clásico para comenzar', '/tigrillo-editorial.png'],
-    ['Alitas', 'Para compartir el antojo', '/alitas-editorial.png'],
-  ]
-
+function HouseHighlights() {
   return (
     <section
-      id="especialidades"
-      className="section-shell specialties"
+      id="de-la-casa"
+      className="section-shell house-section"
     >
       <div className="section-heading">
         <div>
-          <p className="eyebrow">Para elegir sin pensarlo mucho</p>
+          <p className="eyebrow">
+            De la casa
+          </p>
 
-          <h2 className="display-title">Especialidades</h2>
+          <h2 className="display-title">
+            Tradición, hecha a nuestra
+            manera.
+          </h2>
         </div>
 
-        <a href="#menu" className="link-arrow">
-          Explorar el menú
+        <a
+          href="#menu"
+          className="link-arrow"
+        >
+          Ver todo el menú
           <ArrowUpRight size={16} />
         </a>
       </div>
 
-      <div className="specialty-grid">
-        {cards.map(([title, desc, src], i) => (
-          <article
-            key={title}
-            className={`specialty-card specialty-${i + 1}`}
-          >
-            <div className="specialty-image">
-              <Image
-                src={src}
-                alt={`${title}, especialidad de la cafetería`}
-                fill
-                className="object-cover transition duration-700 hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 33vw"
-              />
-            </div>
+      <div className="house-grid">
+        {houseHighlights.map(
+          (
+            item,
+            index,
+          ) => (
+            <article
+              key={item.name}
+              className={`house-card house-card-${
+                index + 1
+              }`}
+            >
+              <div className="house-image">
+                <Image
+                  src={item.image}
+                  alt={item.name}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+              </div>
 
-            <div className="specialty-caption">
-              <h3 className="font-serif">{title}</h3>
-              <p>{desc}</p>
-            </div>
-          </article>
-        ))}
+              <div className="house-card-copy">
+                <div className="house-card-topline">
+                  <h3 className="font-serif">
+                    {item.name}
+                  </h3>
+
+                  <span>
+                    {item.price}
+                  </span>
+                </div>
+
+                <p>
+                  {item.description}
+                </p>
+              </div>
+            </article>
+          ),
+        )}
       </div>
     </section>
   )
 }
 
-/* ─────────────────────────────────────────────
-   MENÚ
-───────────────────────────────────────────── */
-
 function MenuSection() {
-  const [active, setActive] = useState<Category>('Menú')
+  const [
+    active,
+    setActive,
+  ] =
+    useState<Category>(
+      'Tradicionales',
+    )
+
+  const activeCategory =
+    menu[active]
 
   return (
-    <section id="menu" className="menu-section">
+    <section
+      id="menu"
+      className="menu-section"
+    >
       <div className="section-shell">
         <div className="menu-intro">
           <p className="eyebrow text-primary">
-            Hecho para elegir fácil
+            Nuestro menú
           </p>
 
-          <h2 className="display-title">El menú</h2>
+          <h2 className="display-title">
+            Elige con calma.
+          </h2>
 
           <p className="body-copy">
-            Precios claros y
-            opciones para todos los antojos.
+            Explora por categorías. Cuando
+            tengamos las fotografías
+            finales del local, cada producto
+            podrá mostrar su imagen real
+            directamente aquí.
           </p>
         </div>
 
@@ -497,35 +716,109 @@ function MenuSection() {
           role="tablist"
           aria-label="Categorías del menú"
         >
-          {Object.keys(menu).map((cat) => (
+          {(
+            Object.keys(
+              menu,
+            ) as Category[]
+          ).map((cat) => (
             <button
               key={cat}
               type="button"
               role="tab"
-              aria-selected={active === cat}
-              onClick={() => setActive(cat as Category)}
-              className={active === cat ? 'active' : ''}
+              aria-selected={
+                active === cat
+              }
+              onClick={() =>
+                setActive(cat)
+              }
+              className={
+                active === cat
+                  ? 'active'
+                  : ''
+              }
             >
               {cat}
             </button>
           ))}
         </div>
 
-        <div className="menu-list">
-          {menu[active].map(([name, price, detail]) => (
-            <div
-              key={`${name}-${price}`}
-              className="menu-item"
-            >
-              <div className="menu-item-content">
-                <h3>{name}</h3>
+        <div className="menu-category-layout">
+          <aside className="menu-category-visual">
+            <div className="menu-category-image">
+              <Image
+                src={
+                  activeCategory.image
+                }
+                alt={`Imagen de apoyo para ${active}`}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 38vw"
+              />
 
-                {detail && <p>{detail}</p>}
+              <div className="menu-category-image-overlay" />
+
+              <div className="menu-category-caption">
+                <p>
+                  {active}
+                </p>
+
+                <span>
+                  {
+                    activeCategory.intro
+                  }
+                </span>
               </div>
-
-              {price && <span>{price}</span>}
             </div>
-          ))}
+          </aside>
+
+          <div className="menu-list">
+            {activeCategory.items.map(
+              (item) => (
+                <article
+                  key={`${item.name}-${item.price}`}
+                  className="menu-item"
+                >
+                  {item.image && (
+                    <div className="menu-item-image">
+                      <Image
+                        src={
+                          item.image
+                        }
+                        alt={
+                          item.name
+                        }
+                        fill
+                        className="object-cover"
+                        sizes="96px"
+                      />
+                    </div>
+                  )}
+
+                  <div className="menu-item-content">
+                    <div className="menu-item-heading">
+                      <h3>
+                        {item.name}
+                      </h3>
+
+                      <span>
+                        {
+                          item.price
+                        }
+                      </span>
+                    </div>
+
+                    {item.description && (
+                      <p>
+                        {
+                          item.description
+                        }
+                      </p>
+                    )}
+                  </div>
+                </article>
+              ),
+            )}
+          </div>
         </div>
 
         <a
@@ -542,15 +835,13 @@ function MenuSection() {
   )
 }
 
-/* ─────────────────────────────────────────────
-   RESEÑAS
-───────────────────────────────────────────── */
-
 function Reviews() {
   return (
     <section className="section-shell reviews">
       <div className="review-heading">
-        <p className="eyebrow">Lo que dicen</p>
+        <p className="eyebrow">
+          Lo que dicen
+        </p>
 
         <h2 className="display-title">
           Una buena razón para volver.
@@ -567,41 +858,52 @@ function Reviews() {
             'Buen lugar para comer una golosina tipo comida rápida, buena atención, buen ambiente y sobretodo buena comida. Muy recomendable',
             'Manuel Valdez',
           ],
-        ].map(([quote, name]) => (
-          <figure key={name} className="review-card">
-            <div className="stars">
-              {[1, 2, 3, 4, 5].map((n) => (
-                <Star
-                  key={n}
-                  size={15}
-                  fill="currentColor"
-                />
-              ))}
-            </div>
+        ].map(
+          ([
+            quote,
+            name,
+          ]) => (
+            <figure
+              key={name}
+              className="review-card"
+            >
+              <div className="stars">
+                {[
+                  1, 2, 3, 4, 5,
+                ].map((n) => (
+                  <Star
+                    key={n}
+                    size={15}
+                    fill="currentColor"
+                  />
+                ))}
+              </div>
 
-            <blockquote>“{quote}”</blockquote>
+              <blockquote>
+                “{quote}”
+              </blockquote>
 
-            <figcaption>
-              {name} · 5/5
-            </figcaption>
-          </figure>
-        ))}
+              <figcaption>
+                {name} · 5/5
+              </figcaption>
+            </figure>
+          ),
+        )}
       </div>
     </section>
   )
 }
 
-/* ─────────────────────────────────────────────
-   UBICACIÓN
-───────────────────────────────────────────── */
-
 function Location() {
   return (
-    <section id="ubicacion" className="location">
+    <section
+      id="ubicacion"
+      className="location"
+    >
       <div className="location-image">
         <Image
           src="/alitas-editorial.png"
-          alt="Alitas de pollo con papas"
+          alt="Imagen gastronómica de Las 5 Esquinas"
           fill
           className="object-cover"
           sizes="(max-width: 1024px) 100vw, 50vw"
@@ -609,7 +911,9 @@ function Location() {
       </div>
 
       <div className="location-copy">
-        <p className="eyebrow">Encuéntranos</p>
+        <p className="eyebrow">
+          Encuéntranos
+        </p>
 
         <h2 className="display-title">
           Las 5 Esquinas
@@ -637,24 +941,95 @@ function Location() {
   )
 }
 
-/* ─────────────────────────────────────────────
-   FOOTER
-───────────────────────────────────────────── */
+function SocialSection() {
+  return (
+    <section
+      id="redes"
+      className="social-section"
+    >
+      <div className="section-shell social-section-inner">
+        <div>
+          <p className="eyebrow">
+            Sigamos cerca
+          </p>
+
+          <h2 className="display-title">
+            Encuéntranos también en tus
+            redes.
+          </h2>
+
+          <p className="body-copy">
+            Esta sección queda lista para
+            usarse como destino del futuro
+            acceso de Wi-Fi para clientes.
+          </p>
+        </div>
+
+        <div className="social-cards">
+          {socials.map(
+            ({
+              label,
+              href,
+            }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`social-card ${
+                  label ===
+                  'WhatsApp'
+                    ? 'social-card-whatsapp'
+                    : ''
+                }`}
+              >
+                <span className="social-card-icon">
+                  <SocialIcon
+                    label={
+                      label
+                    }
+                  />
+                </span>
+
+                <span>
+                  {label}
+                </span>
+
+                <ArrowUpRight
+                  size={18}
+                />
+              </a>
+            ),
+          )}
+        </div>
+      </div>
+    </section>
+  )
+}
 
 function Footer() {
+  const year =
+    new Date().getFullYear()
+
   return (
-    <footer id="contacto" className="footer">
+    <footer
+      id="contacto"
+      className="footer"
+    >
       <div className="section-shell">
         <div className="footer-top">
           <div>
             <Brand />
+
             <p className="footer-copy">
-              Café, comida y antojos para cualquier momento.
+              Un lugar para comer,
+              conversar sin prisa y
+              quedarse un poco más.
             </p>
           </div>
 
           <div className="footer-contact">
-            <a href="tel:0983202196">
+            <a href="tel:+593983202196">
               <Phone size={16} />
               0983202196
             </a>
@@ -663,24 +1038,26 @@ function Footer() {
               className="button-primary"
               href={whatsapp}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
-              Pedir por WhatsApp <ArrowUpRight size={16} />
+              Pedir por WhatsApp
+              <ArrowUpRight
+                size={16}
+              />
             </a>
           </div>
         </div>
 
         <div className="footer-bottom">
-          <p>Demo / propuesta comercial no oficial</p>
+          <p>
+            © {year} Las 5 Esquinas ·
+            Ricaurte, Cuenca
+          </p>
         </div>
       </div>
     </footer>
   )
 }
-
-/* ─────────────────────────────────────────────
-   PÁGINA
-───────────────────────────────────────────── */
 
 export function Las5Esquinas() {
   return (
@@ -689,19 +1066,26 @@ export function Las5Esquinas() {
 
       <main>
         <Hero />
+
         <Intro />
-        <Specialties />
+
+        <HouseHighlights />
+
         <MenuSection />
+
         <Reviews />
+
         <Location />
+
+        <SocialSection />
 
         <section className="final-cta">
           <p className="eyebrow">
-            El antojo ya está decidido
+            Cuando llegue el antojo
           </p>
 
           <h2 className="font-serif">
-            ¿Qué se te antoja?
+            Aquí nos encontramos.
           </h2>
 
           <a
