@@ -2618,6 +2618,117 @@ a:hover {
 }
 
 /* =========================================================
+   SCROLL REVEAL — V2 ROBUSTO
+========================================================= */
+
+/*
+  Los elementos se ocultan únicamente cuando JavaScript añade
+  .motion-enabled al <html>. Si JS falla, la página queda visible.
+*/
+html.motion-enabled [data-animate] {
+  --motion-x: 0px;
+  --motion-y: 30px;
+  --motion-scale: 1;
+
+  opacity: 0;
+  transform: translate3d(var(--motion-x), var(--motion-y), 0) scale(var(--motion-scale));
+  filter: blur(3px);
+
+  transition-property: opacity, transform, filter;
+  transition-duration: 820ms, 900ms, 700ms;
+  transition-timing-function:
+    cubic-bezier(0.22, 1, 0.36, 1),
+    cubic-bezier(0.22, 1, 0.36, 1),
+    ease;
+
+  will-change: opacity, transform, filter;
+}
+
+html.motion-enabled [data-animate="left"] {
+  --motion-x: -58px;
+  --motion-y: 0px;
+}
+
+html.motion-enabled [data-animate="right"] {
+  --motion-x: 58px;
+  --motion-y: 0px;
+}
+
+html.motion-enabled [data-animate="down"] {
+  --motion-y: -30px;
+}
+
+html.motion-enabled [data-animate="zoom"] {
+  --motion-y: 14px;
+  --motion-scale: 0.94;
+}
+
+html.motion-enabled [data-animate="fade"] {
+  --motion-y: 0px;
+}
+
+html.motion-enabled [data-animate].is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+}
+
+/* Wrappers neutros: la animación no pisa los hover originales. */
+.hero-button-reveal,
+.house-card-reveal,
+.social-cup-reveal {
+  min-width: 0;
+}
+
+.hero-button-reveal {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.house-card-reveal {
+  height: 100%;
+}
+
+.house-card-reveal > .house-card {
+  height: 100%;
+}
+
+.social-cup-reveal {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.social-cup-reveal > .social-cup-link {
+  width: 100%;
+}
+
+/* Al cambiar categoría o avanzar, las tarjetas respiran suavemente. */
+.menu-product-card {
+  animation: menu-card-soft-in 430ms ease both;
+}
+
+.menu-product-card:nth-child(2) {
+  animation-delay: 55ms;
+}
+
+.menu-product-card:nth-child(3) {
+  animation-delay: 110ms;
+}
+
+@keyframes menu-card-soft-in {
+  from {
+    opacity: 0.15;
+    filter: blur(2px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+/* =========================================================
    REDUCED MOTION
 ========================================================= */
 
@@ -2634,6 +2745,14 @@ a:hover {
 
     transition-duration:
       0.01ms !important;
+  }
+
+  html.motion-enabled [data-animate],
+  html.motion-enabled [data-animate].is-visible {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
   }
 }
 
@@ -2726,3 +2845,19 @@ a:hover {
   }
 }
 
+
+
+@media (max-width: 640px) {
+  html.motion-enabled [data-animate="left"] {
+    --motion-x: -32px;
+  }
+
+  html.motion-enabled [data-animate="right"] {
+    --motion-x: 32px;
+  }
+
+  html.motion-enabled [data-animate="zoom"] {
+    --motion-y: 10px;
+    --motion-scale: 0.965;
+  }
+}

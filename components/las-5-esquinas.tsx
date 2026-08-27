@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import {
   ArrowUpRight,
@@ -384,6 +384,96 @@ const houseHighlights = [
   },
 ]
 
+function useScrollReveal() {
+  useEffect(() => {
+    const root = document.documentElement
+    const elements = Array.from(
+      document.querySelectorAll<HTMLElement>('[data-animate]'),
+    )
+
+    if (elements.length === 0) return
+
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches
+
+    if (reduceMotion) {
+      elements.forEach((element) => {
+        element.classList.add('is-visible')
+      })
+      return
+    }
+
+    // Ocultamos los elementos solo cuando JavaScript ya está funcionando.
+    // Así, si JS falla, el contenido nunca queda invisible.
+    root.classList.add('motion-enabled')
+
+    const revealIfAlreadyVisible = () => {
+      const viewportHeight = window.innerHeight
+
+      elements.forEach((element) => {
+        const rect = element.getBoundingClientRect()
+
+        if (
+          rect.top < viewportHeight * 0.92 &&
+          rect.bottom > viewportHeight * 0.04
+        ) {
+          element.classList.add('is-visible')
+        }
+      })
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      elements.forEach((element) => {
+        element.classList.add('is-visible')
+      })
+
+      return () => {
+        root.classList.remove('motion-enabled')
+      }
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return
+
+          entry.target.classList.add('is-visible')
+          observer.unobserve(entry.target)
+        })
+      },
+      {
+        threshold: 0.14,
+        rootMargin: '0px 0px -8% 0px',
+      },
+    )
+
+    elements.forEach((element) => {
+      observer.observe(element)
+    })
+
+    let frameTwo: number | undefined
+
+    // Dos frames fuerzan un estado inicial pintado antes de revelar el hero.
+    const frameOne = requestAnimationFrame(() => {
+      frameTwo = requestAnimationFrame(() => {
+        revealIfAlreadyVisible()
+      })
+    })
+
+    return () => {
+      observer.disconnect()
+      cancelAnimationFrame(frameOne)
+
+      if (frameTwo !== undefined) {
+        cancelAnimationFrame(frameTwo)
+      }
+
+      root.classList.remove('motion-enabled')
+    }
+  }, [])
+}
+
 function InstagramIcon() {
   return (
     <svg
@@ -533,7 +623,7 @@ function SocialRail() {
 function Header() {
   return (
     <header className="site-header">
-      <div className="header-inner">
+      <div className="header-inner" data-animate="down">
         <Brand light />
 
         <nav
@@ -583,7 +673,7 @@ function Hero() {
 
       <div className="hero-overlay" />
 
-      <p className="hero-location">
+      <p className="hero-location" data-animate="left">
         RICAURTE • CUENCA, ECUADOR
       </p>
 
@@ -591,6 +681,7 @@ function Hero() {
         <div
           className="hero-logo-wrap"
           aria-label="Las 5 Esquinas"
+          data-animate="zoom"
         >
           <Image
             src="/logo-las-5-esquinas-light.png"
@@ -602,7 +693,7 @@ function Hero() {
           />
         </div>
 
-        <p className="hero-copy">
+        <p className="hero-copy" data-animate="up" style={{ transitionDelay: '100ms' }}>
           Un lugar para comer,
           conversar sin
           <br className="hidden sm:block" />{' '}
@@ -610,12 +701,18 @@ function Hero() {
           más.
         </p>
 
-        <a
-          href="#menu"
-          className="hero-menu-button"
+        <div
+          className="hero-button-reveal"
+          data-animate="up"
+          style={{ transitionDelay: '190ms' }}
         >
-          VER MENÚ
-        </a>
+          <a
+            href="#menu"
+            className="hero-menu-button"
+          >
+            VER MENÚ
+          </a>
+        </div>
       </div>
     </section>
   )
@@ -628,7 +725,7 @@ function Intro() {
       className="intro-section"
     >
       <div className="section-shell intro-grid">
-        <div className="intro-brand-block">
+        <div className="intro-brand-block" data-animate="left">
           <p className="eyebrow">
             Bienvenidos
           </p>
@@ -642,7 +739,7 @@ function Intro() {
           />
         </div>
 
-        <div>
+        <div className="intro-copy-block" data-animate="right">
           <h2 className="display-title">
             Un punto de encuentro para
             sentirse en casa.
@@ -673,7 +770,7 @@ function HouseHighlights() {
     >
       <div className="section-shell house-shell">
         <div className="house-heading">
-          <div className="house-heading-copy">
+          <div className="house-heading-copy" data-animate="left">
             <p className="house-eyebrow">
               De la casa
             </p>
@@ -683,21 +780,26 @@ function HouseHighlights() {
             </h2>
           </div>
 
-          <a
-            href="#menu"
-            className="house-menu-link"
-          >
-            Ver todo el menú
-            <ArrowUpRight size={16} />
-          </a>
+          <div data-animate="right" style={{ transitionDelay: '90ms' }}>
+            <a
+              href="#menu"
+              className="house-menu-link"
+            >
+              Ver todo el menú
+              <ArrowUpRight size={16} />
+            </a>
+          </div>
         </div>
 
         <div className="house-grid">
-          {houseHighlights.map((item) => (
-            <article
+          {houseHighlights.map((item, index) => (
+            <div
               key={item.name}
-              className="house-card"
+              className="house-card-reveal"
+              data-animate="up"
+              style={{ transitionDelay: `${index * 110}ms` }}
             >
+              <article className="house-card">
               <div className="house-image">
                 <Image
                   src={item.image}
@@ -721,7 +823,8 @@ function HouseHighlights() {
                   {item.description}
                 </p>
               </div>
-            </article>
+              </article>
+            </div>
           ))}
         </div>
       </div>
@@ -759,12 +862,12 @@ function MenuSection() {
   return (
     <section id="menu" className="menu-section">
       <div className="menu-shell">
-        <div className="menu-section-heading">
+        <div className="menu-section-heading" data-animate="left">
           <p className="menu-section-kicker">Nuestro menú</p>
           <h2 className="menu-section-title">Te presentamos todas las opciones que tenemos para tí.</h2>
         </div>
 
-        <div className="menu-notebook">
+        <div className="menu-notebook" data-animate="zoom" style={{ transitionDelay: '100ms' }}>
           <div className="menu-notebook-top">
             <p className="menu-hand-title">Elige con calma.</p>
 
@@ -830,15 +933,17 @@ function MenuSection() {
           </div>
         </div>
 
-        <a
-          href={whatsapp}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="menu-whatsapp-button"
-        >
-          Pedir por WhatsApp
-          <ArrowUpRight size={16} />
-        </a>
+        <div data-animate="up" style={{ transitionDelay: '160ms' }}>
+          <a
+            href={whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="menu-whatsapp-button"
+          >
+            Pedir por WhatsApp
+            <ArrowUpRight size={16} />
+          </a>
+        </div>
       </div>
     </section>
   )
@@ -847,7 +952,7 @@ function MenuSection() {
 function Reviews() {
   return (
     <section className="section-shell reviews">
-      <div className="review-heading">
+      <div className="review-heading" data-animate="left">
         <p className="eyebrow">
           Lo que dicen
         </p>
@@ -871,10 +976,12 @@ function Reviews() {
           ([
             quote,
             name,
-          ]) => (
+          ], index) => (
             <figure
               key={name}
               className="review-card"
+              data-animate="up"
+              style={{ transitionDelay: `${index * 120}ms` }}
             >
               <div className="stars">
                 {[
@@ -910,7 +1017,7 @@ function Location() {
       className="location-section"
     >
       <div className="location-frame">
-        <div className="location-image">
+        <div className="location-image" data-animate="left">
           <Image
             src="/alitas-editorial.png"
             alt="Plato servido en Las 5 Esquinas"
@@ -921,7 +1028,7 @@ function Location() {
           <div className="location-image-overlay" />
         </div>
 
-        <div className="location-copy">
+        <div className="location-copy" data-animate="right" style={{ transitionDelay: '90ms' }}>
           <p className="location-eyebrow">
             ENCUÉNTRANOS
           </p>
@@ -1003,7 +1110,7 @@ function SocialSection() {
       <div className="social-showcase-overlay" />
 
       <div className="section-shell social-showcase-inner">
-        <div className="social-showcase-heading">
+        <div className="social-showcase-heading" data-animate="up">
           <p className="social-showcase-eyebrow">
             YA QUE ESTÁS AQUÍ
           </p>
@@ -1014,15 +1121,20 @@ function SocialSection() {
         </div>
 
         <div className="social-cup-grid">
-          {socialShowcase.map((item) => (
-            <a
+          {socialShowcase.map((item, index) => (
+            <div
               key={item.label}
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="social-cup-link"
-              aria-label={`Abrir ${item.label} de Las 5 Esquinas`}
+              className="social-cup-reveal"
+              data-animate="zoom"
+              style={{ transitionDelay: `${index * 100}ms` }}
             >
+              <a
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-cup-link"
+                aria-label={`Abrir ${item.label} de Las 5 Esquinas`}
+              >
               <div className="social-cup-image-wrap">
                 <Image
                   src={item.image}
@@ -1034,14 +1146,15 @@ function SocialSection() {
                 />
               </div>
 
-              <span className="social-cup-label">
-                {item.label}
-              </span>
-            </a>
+                <span className="social-cup-label">
+                  {item.label}
+                </span>
+              </a>
+            </div>
           ))}
         </div>
 
-        <p className="social-showcase-closing font-serif">
+        <p className="social-showcase-closing font-serif" data-animate="up" style={{ transitionDelay: '180ms' }}>
           y sigue con nosotros escribiendo
           <br />
           esta historia...
@@ -1059,7 +1172,7 @@ function Footer() {
       id="contacto"
       className="footer"
     >
-      <div className="footer-shell">
+      <div className="footer-shell" data-animate="up">
         <a
           href="#inicio"
           className="footer-logo-link"
@@ -1118,6 +1231,8 @@ function Footer() {
 }
 
 export function Las5Esquinas() {
+  useScrollReveal()
+
   return (
     <>
       <Header />
