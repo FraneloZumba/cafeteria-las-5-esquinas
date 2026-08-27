@@ -321,6 +321,8 @@ a:hover {
 
 .body-copy {
   @apply mt-7 max-w-xl text-base leading-7 text-muted-foreground;
+
+  text-align: justify;
 }
 
 .link-arrow {
@@ -496,10 +498,9 @@ a:hover {
 
 .hero-copy {
   max-width: 590px;
-
   margin: 0 auto;
 
-  color: #d79764;
+  color: #e7a66f;
 
   font-size:
     clamp(
@@ -508,17 +509,15 @@ a:hover {
       1.55rem
     );
 
-  font-weight: 400;
+  font-weight: 500;
 
   line-height: 1.45;
-
   letter-spacing: -0.015em;
-
   text-align: center;
 
   text-shadow:
-    0 2px 12px
-    rgba(0, 0, 0, 0.35);
+    0 2px 6px rgba(0, 0, 0, 0.55),
+    0 4px 18px rgba(0, 0, 0, 0.38);
 }
 
 /* Botón */
@@ -811,7 +810,7 @@ a:hover {
   padding-top: 0.15rem;
   color: #bd7a4a;
   font-family: var(--font-dm-serif), Georgia, serif;
-  font-size: clamp(1rem, 1.15vw, 1.3rem);
+  font-size: clamp(1.15rem, 1.35vw, 1.5rem);
   line-height: 1;
   white-space: nowrap;
 }
@@ -822,6 +821,7 @@ a:hover {
   font-size: 0.84rem;
   line-height: 1.58;
   overflow-wrap: normal;
+  text-align: justify;
 }
 
 /* =========================================================
@@ -2189,7 +2189,7 @@ a:hover {
   .hero-copy {
     max-width: 340px;
 
-    font-size: 1rem;
+    font-size: 1.25rem;
 
     line-height: 1.52;
   }

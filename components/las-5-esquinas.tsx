@@ -694,11 +694,9 @@ function Hero() {
         </div>
 
         <p className="hero-copy" data-animate="up" style={{ transitionDelay: '100ms' }}>
-          Un lugar para comer,
-          conversar sin
+          Un espacio pensado
           <br className="hidden sm:block" />{' '}
-          prisa y quedarse un poco
-          más.
+          para sentirse en casa
         </p>
 
         <div
@@ -741,8 +739,7 @@ function Intro() {
 
         <div className="intro-copy-block" data-animate="right">
           <h2 className="display-title">
-            Un punto de encuentro para
-            sentirse en casa.
+           Tradición, sabor y buenos momentos en un solo lugar.
           </h2>
 
           <p className="body-copy">
@@ -752,7 +749,7 @@ function Intro() {
             un buen café o volver más tarde
             para compartir algo rico,
             conversar sin prisa y quedarte
-            un poco más. Más que un lugar
+            un ratito. Más que un lugar
             para comer, somos un punto de
             encuentro.
           </p>
@@ -1047,7 +1044,10 @@ function Location() {
             <address className="location-address">
               Ricaurte - 5 Esquinas
               <br />
-              Vicente Pacheco 412
+              Antonio Ricaurte 
+              <br />
+              y Vicente Pacheco 410
+              <br />
               <br />
               Cuenca, Ecuador
             </address>
@@ -1076,21 +1076,19 @@ function Location() {
             <div className="location-hours-list">
               <div className="location-hours-row">
                 <span className="location-hours-days">
-                  Lun – Vie
+                  De Lunes a Sábado:
                 </span>
                 <span className="location-hours-time">
-                  8:00 a.m. – 11:00 a.m.
-                  <br />
-                  3:00 p.m. – 10:00 p.m.
+                  3:00 p.m. – 10:30 p.m.
                 </span>
               </div>
 
               <div className="location-hours-row">
                 <span className="location-hours-days">
-                  Sáb – Dom
+                  Domingos:
                 </span>
                 <span className="location-hours-time">
-                  3:00 p.m. – 10:00 p.m.
+                  5:00 p.m. – 9:30 p.m.
                 </span>
               </div>
             </div>
