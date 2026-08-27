@@ -607,40 +607,34 @@ function HouseHighlights() {
   return (
     <section
       id="de-la-casa"
-      className="section-shell house-section"
+      className="house-section"
     >
-      <div className="section-heading">
-        <div>
-          <p className="eyebrow">
-            De la casa
-          </p>
+      <div className="section-shell house-shell">
+        <div className="house-heading">
+          <div className="house-heading-copy">
+            <p className="house-eyebrow">
+              De la casa
+            </p>
 
-          <h2 className="display-title">
-            Tradición, hecha a nuestra
-            manera.
-          </h2>
+            <h2 className="house-title">
+              Tradición, hecha a nuestra manera.
+            </h2>
+          </div>
+
+          <a
+            href="#menu"
+            className="house-menu-link"
+          >
+            Ver todo el menú
+            <ArrowUpRight size={16} />
+          </a>
         </div>
 
-        <a
-          href="#menu"
-          className="link-arrow"
-        >
-          Ver todo el menú
-          <ArrowUpRight size={16} />
-        </a>
-      </div>
-
-      <div className="house-grid">
-        {houseHighlights.map(
-          (
-            item,
-            index,
-          ) => (
+        <div className="house-grid">
+          {houseHighlights.map((item) => (
             <article
               key={item.name}
-              className={`house-card house-card-${
-                index + 1
-              }`}
+              className="house-card"
             >
               <div className="house-image">
                 <Image
@@ -648,28 +642,26 @@ function HouseHighlights() {
                   alt={item.name}
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 33vw"
+                  sizes="(max-width: 900px) 100vw, 33vw"
                 />
               </div>
 
               <div className="house-card-copy">
                 <div className="house-card-topline">
-                  <h3 className="font-serif">
-                    {item.name}
-                  </h3>
+                  <h3>{item.name}</h3>
 
-                  <span>
+                  <span className="house-price">
                     {item.price}
                   </span>
                 </div>
 
-                <p>
+                <p className="house-description">
                   {item.description}
                 </p>
               </div>
             </article>
-          ),
-        )}
+          ))}
+        </div>
       </div>
     </section>
   )

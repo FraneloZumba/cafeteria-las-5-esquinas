@@ -154,6 +154,7 @@ a:hover {
 
   align-items: center;
   justify-content: space-between;
+  gap: 1.25rem;
 
   min-width: 0;
 }
@@ -161,7 +162,7 @@ a:hover {
 .desktop-nav {
   display: flex;
   align-items: center;
-  gap: 2.25rem;
+  gap: clamp(32px, 4vw, 65px);
   padding: 0.85rem 1.35rem;
   border-radius: 999px;
   background: rgba(25, 18, 14, 0.34);
@@ -172,15 +173,32 @@ a:hover {
 }
 
 .desktop-nav a {
-  color: rgba(255, 250, 242, 0.88);
-  font-size: 0.98rem;
-  font-weight: 600;
-  text-decoration: none;
+  position: relative;
+  color: rgba(255, 250, 242, 0.92);
+  font-size: clamp(0.95rem, 1.2vw, 1.22rem);
+  font-weight: 450;
+  letter-spacing: 0.005em;
   white-space: nowrap;
+  text-decoration: none;
+}
+
+.desktop-nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -7px;
+  height: 1px;
+  background: #e1a36d;
+  transition: right 0.3s ease;
 }
 
 .desktop-nav a:hover {
-  color: #ffffff;
+  color: #fffaf2;
+}
+
+.desktop-nav a:hover::after {
+  right: 0;
 }
 
 /* Marca */
@@ -256,68 +274,6 @@ a:hover {
   letter-spacing: -0.015em;
 
   white-space: nowrap;
-}
-
-/* Navegación escritorio */
-
-.desktop-nav {
-  gap:
-    clamp(
-      32px,
-      4vw,
-      65px
-    );
-}
-
-.desktop-nav a {
-  position: relative;
-
-  color:
-    rgba(
-      255,
-      250,
-      242,
-      0.92
-    );
-
-  font-size:
-    clamp(
-      0.95rem,
-      1.2vw,
-      1.22rem
-    );
-
-  font-weight: 450;
-
-  letter-spacing: 0.005em;
-}
-
-.desktop-nav a::after {
-  content: '';
-
-  position: absolute;
-
-  left: 0;
-  right: 100%;
-
-  bottom: -7px;
-
-  height: 1px;
-
-  background: #e1a36d;
-
-  transition:
-    right
-    0.3s
-    ease;
-}
-
-.desktop-nav a:hover {
-  color: #fffaf2;
-}
-
-.desktop-nav a:hover::after {
-  right: 0;
 }
 
 /* =========================================================
@@ -685,125 +641,186 @@ a:hover {
 }
 
 /* =========================================================
-   DE LA CASA
+   DE LA CASA — V2
 ========================================================= */
 
 .house-section {
-  @apply py-20 lg:py-28;
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  color: #fffaf2;
+  background-image: url('/tablas1.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(31, 22, 18, 0.28);
 }
 
-.section-heading {
-  @apply flex flex-col justify-between gap-5 md:flex-row md:items-end;
+.house-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(37, 28, 23, 0.34);
+  pointer-events: none;
+}
 
+.house-shell {
+  position: relative;
+  z-index: 1;
+  padding-top: clamp(82px, 7vw, 118px);
+  padding-bottom: clamp(82px, 7vw, 118px);
+}
+
+.house-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: clamp(34px, 3.4vw, 52px);
+}
+
+.house-heading-copy {
   min-width: 0;
 }
 
+.house-eyebrow {
+  margin: 0 0 0.65rem;
+  color: rgba(255, 250, 242, 0.86);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+.house-title {
+  max-width: 920px;
+  margin: 0;
+  color: #fffaf2;
+  font-family: var(--font-dm-serif), Georgia, serif;
+  font-size: clamp(2.65rem, 4vw, 4.9rem);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+  text-shadow: 0 3px 18px rgba(22, 15, 12, 0.18);
+}
+
+.house-menu-link {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 44px;
+  padding: 0.72rem 1.15rem;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 999px;
+  background: rgba(255, 250, 242, 0.94);
+  color: #2c211b;
+  font-size: 0.84rem;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(23, 16, 12, 0.16);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.house-menu-link:hover {
+  color: #2c211b;
+  background: #fffaf2;
+  transform: translateY(-2px);
+}
+
 .house-grid {
-  @apply mt-12 grid gap-6 md:grid-cols-12 md:items-start;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(22px, 2.2vw, 36px);
+  align-items: stretch;
+  width: 100%;
 }
 
 .house-card {
+  display: flex;
+  min-width: 0;
+  height: 100%;
+  flex-direction: column;
   overflow: hidden;
-
-  border:
-    1px
-    solid
-    var(--border);
-
-  background:
-    rgba(
-      255,
-      250,
-      242,
-      0.72
-    );
-
-  box-shadow:
-    0 24px 55px
-    rgba(67, 43, 31, 0.08);
+  border: 1px solid rgba(53, 39, 31, 0.18);
+  background: #f8f2e9;
+  color: #2c211b;
+  box-shadow: 0 18px 42px rgba(29, 20, 15, 0.16);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
-.house-card-1 {
-  @apply md:col-span-5;
-}
-
-.house-card-2 {
-  @apply md:col-span-4 md:translate-y-12;
-}
-
-.house-card-3 {
-  @apply md:col-span-3 md:translate-y-4;
+.house-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 24px 50px rgba(29, 20, 15, 0.24);
 }
 
 .house-image {
-  @apply relative overflow-hidden;
-
-  aspect-ratio:
-    1 / 1.03;
-
-  background:
-    var(--secondary);
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.14 / 1;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: #d7c7b6;
 }
 
 .house-image img {
-  transition:
-    transform 0.8s ease;
+  object-fit: cover;
+  transition: transform 0.75s ease;
 }
 
-.house-card:hover
-.house-image img {
-  transform:
-    scale(1.035);
+.house-card:hover .house-image img {
+  transform: scale(1.035);
 }
 
 .house-card-copy {
-  padding: 1.35rem;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: clamp(18px, 1.4vw, 24px);
 }
 
 .house-card-topline {
-  display: flex;
-
-  align-items: flex-start;
-  justify-content: space-between;
-
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
   gap: 1rem;
 }
 
 .house-card-topline h3 {
-  font-size:
-    clamp(
-      1.65rem,
-      3vw,
-      2.25rem
-    );
+  margin: 0;
+  color: #31241d;
+  font-family: var(--font-dm-serif), Georgia, serif;
+  font-size: clamp(1.45rem, 1.7vw, 2rem);
+  font-weight: 400;
+  line-height: 1.03;
+  letter-spacing: -0.03em;
+  overflow-wrap: normal;
+}
 
+.house-price {
+  padding-top: 0.15rem;
+  color: #bd7a4a;
+  font-family: var(--font-dm-serif), Georgia, serif;
+  font-size: clamp(1rem, 1.15vw, 1.3rem);
   line-height: 1;
-
-  letter-spacing: -0.035em;
+  white-space: nowrap;
 }
 
-.house-card-topline span {
-  flex-shrink: 0;
-
-  font-family:
-    var(--font-dm-serif),
-    Georgia,
-    serif;
-
-  font-size: 1.35rem;
-
-  color: var(--primary);
-}
-
-.house-card-copy p {
-  margin-top: 0.85rem;
-
-  color:
-    var(--muted-foreground);
-
-  font-size: 0.9rem;
-
-  line-height: 1.65;
+.house-description {
+  margin: 0.85rem 0 0;
+  color: #5e5148;
+  font-size: 0.84rem;
+  line-height: 1.58;
+  overflow-wrap: normal;
 }
 
 /* =========================================================
@@ -1553,18 +1570,20 @@ a:first-child {
     left: 24px;
   }
 
-.hero-logo-wrap {
-  width: min(500px, 65vw);
+  .hero-logo-wrap {
+    width: min(500px, 65vw);
 
-  height: clamp(
-    250px,
-    42vw,
-    330px
-  );
+    height: clamp(
+      250px,
+      42vw,
+      330px
+    );
 
-  margin-top: 0;
-  margin-bottom: -15px;
+    margin-top: 0;
+    margin-bottom: -15px;
+  }
 }
+
 
 /* =========================================================
    MÓVIL
@@ -1579,9 +1598,9 @@ a:first-child {
     padding-right: 17px;
   }
 
-.desktop-nav {
-  display: none;
-}
+  .desktop-nav {
+    display: none;
+  }
 
   .brand {
     gap: 10px;
@@ -1630,14 +1649,14 @@ a:first-child {
       70px;
   }
 
-.hero-logo-wrap {
-  width: min(390px, 90vw);
+  .hero-logo-wrap {
+    width: min(390px, 90vw);
 
-  height: min(290px, 70vw);
+    height: min(290px, 70vw);
 
-  margin-top: 0;
-  margin-bottom: -8px;
-}
+    margin-top: 0;
+    margin-bottom: -8px;
+  }
 
   .hero-logo {
     transform:
@@ -1692,25 +1711,6 @@ a:first-child {
 
     margin-top: 0.75rem;
   }
-
-  .house-section {
-    padding-top: 70px;
-    padding-bottom: 70px;
-  }
-
-  .house-grid {
-    margin-top: 32px;
-  }
-
-  .house-card-2,
-  .house-card-3 {
-    transform: none;
-  }
-
-  .house-image {
-    aspect-ratio: 1.05;
-  }
-
   .section-heading {
     align-items: flex-start;
   }
@@ -1877,4 +1877,76 @@ a:first-child {
       scale(1.11);
   }
 }
+
+/* =========================================================
+   DE LA CASA — RESPONSIVE V2
+========================================================= */
+
+@media (max-width: 1050px) {
+  .house-title {
+    font-size: clamp(2.45rem, 5vw, 4rem);
+  }
+
+  .house-grid {
+    gap: 20px;
+  }
 }
+
+@media (max-width: 900px) {
+  .house-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .house-grid {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 720px;
+    margin-inline: auto;
+  }
+
+  .house-image {
+    aspect-ratio: 1.35 / 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .house-shell {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+  .house-heading {
+    margin-bottom: 30px;
+  }
+
+  .house-title {
+    font-size: clamp(2.3rem, 10.5vw, 3.55rem);
+  }
+
+  .house-menu-link {
+    min-height: 42px;
+    padding: 0.68rem 1rem;
+  }
+
+  .house-grid {
+    gap: 22px;
+  }
+
+  .house-image {
+    aspect-ratio: 1.08 / 1;
+  }
+
+  .house-card-copy {
+    padding: 18px;
+  }
+
+  .house-card-topline h3 {
+    font-size: clamp(1.55rem, 7vw, 1.95rem);
+  }
+
+  .house-price {
+    font-size: 1.08rem;
+  }
+}
+
