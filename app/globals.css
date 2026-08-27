@@ -1809,7 +1809,7 @@ a:hover {
 
 .footer-logo {
   object-fit: contain;
-  transform: scale(1.58);
+  transform: scale(1.50);
   transform-origin: center;
   mix-blend-mode: screen;
 }
