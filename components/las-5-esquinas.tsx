@@ -5,7 +5,6 @@ import Image from 'next/image'
 import {
   ArrowUpRight,
   ChevronRight,
-  Phone,
   Star,
 } from 'lucide-react'
 
@@ -1053,50 +1052,64 @@ function SocialSection() {
 }
 
 function Footer() {
-  const year =
-    new Date().getFullYear()
+  const year = new Date().getFullYear()
 
   return (
     <footer
       id="contacto"
       className="footer"
     >
-      <div className="section-shell">
-        <div className="footer-top">
-          <div>
-            <Brand />
+      <div className="footer-shell">
+        <a
+          href="#inicio"
+          className="footer-logo-link"
+          aria-label="Las 5 Esquinas, volver al inicio"
+        >
+          <span className="footer-logo-wrap">
+            <Image
+              src="/logo-las-5-esquinas-light.png"
+              alt="Las 5 Esquinas"
+              fill
+              className="footer-logo"
+              sizes="240px"
+            />
+          </span>
+        </a>
 
-            <p className="footer-copy">
-              Un lugar para comer,
-              conversar sin prisa y
-              quedarse un poco más.
-            </p>
-          </div>
+        <p className="footer-tagline">
+          Un lugar para comer, conversar sin prisa y quedarse un poco más.
+        </p>
 
-          <div className="footer-contact">
-            <a href="tel:+593983202196">
-              <Phone size={16} />
-              0983202196
-            </a>
+        <nav
+          className="footer-nav"
+          aria-label="Navegación del pie de página"
+        >
+          <a href="#inicio">Inicio</a>
+          <a href="#de-la-casa">De la casa</a>
+          <a href="#menu">Menú</a>
+          <a href="#ubicacion">Ubicación</a>
+          <a href="#redes">Redes</a>
+        </nav>
 
-            <a
-              className="button-primary"
-              href={whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Pedir por WhatsApp
-              <ArrowUpRight
-                size={16}
-              />
-            </a>
-          </div>
-        </div>
+        <a
+          className="footer-whatsapp"
+          href={whatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span>Pedir por WhatsApp</span>
+          <ArrowUpRight size={17} />
+        </a>
+
+        <div className="footer-divider" />
 
         <div className="footer-bottom">
+          <p className="footer-signoff">
+            Las 5 Esquinas — un punto de encuentro.
+          </p>
+
           <p>
-            © {year} Las 5 Esquinas ·
-            Ricaurte, Cuenca
+            © {year} Las 5 Esquinas · Ricaurte, Cuenca
           </p>
         </div>
       </div>
