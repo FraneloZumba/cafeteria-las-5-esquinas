@@ -329,23 +329,44 @@ a:hover {
   background: #211813;
 }
 
-.hero-photo {
-  object-fit: cover;
+.hero-photo-stack {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
 
-  transform:
-    scale(1.06);
+.hero-photo {
+  position: absolute;
+  inset: 0;
+
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  opacity: 0;
+  transform: scale(1.06);
 
   filter:
     blur(2.5px)
-    brightness(0.68)
+    brightness(0.45)
     saturate(0.78)
     contrast(0.96);
+
+  transition: opacity 1.2s ease-in-out;
 
   animation:
     slow-zoom
     22s
     ease-out
     both;
+
+  will-change: opacity, transform;
+}
+
+.hero-photo-active {
+  opacity: 1;
 }
 
 .hero-overlay {
@@ -1264,7 +1285,7 @@ a:hover {
   margin: 0;
   color: #2d211b;
   font-family: var(--font-dm-serif), Georgia, serif;
-  font-size: clamp(2rem, 3vw, 3rem);
+  font-size: clamp(1.25rem, 2.2vw, 2.35rem);
   font-weight: 400;
   line-height: 0.98;
   letter-spacing: -0.035em;

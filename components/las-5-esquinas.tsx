@@ -10,6 +10,16 @@ import {
   X,
 } from 'lucide-react'
 
+const heroImages = [
+  '/1.png',
+  '/2.png',
+  '/3.png',
+  '/4.png',
+  '/5.png',
+  '/6.png',
+  '/7.png',
+]
+
 const whatsapp = 'https://wa.me/593983202196'
 
 const maps =
@@ -61,12 +71,11 @@ type MenuItem = {
   name: string
   price: string
   description?: string
-  image?: string
+  image: string
 }
 
 type MenuCategory = {
   intro: string
-  image: string
   items: MenuItem[]
 }
 
@@ -81,134 +90,152 @@ type Category =
 const menu: Record<Category, MenuCategory> = {
   Tradicionales: {
     intro: 'Sabores sencillos y conocidos para disfrutar sin prisa.',
-    image: '/bolon-editorial.png',
     items: [
       {
         name: 'Tamal de pollo',
         price: '$1,00',
+        image: '/tamal-de-pollo.png',
       },
       {
         name: 'Humita',
         price: '$1,00',
+        image: '/humita.png',
       },
       {
         name: 'Humita frita',
         price: '$1,50',
+        image: '/humita-frita.png',
       },
       {
         name: 'Tortilla de yuca',
         price: '$1,25',
+        image: '/tortilla-de-yuca.png',
       },
       {
         name: 'Tostada',
         price: '$1,50',
+        image: '/tostada.png',
       },
       {
         name: 'Torta de platano maduro',
         price: '$2,25',
+        image: '/torta-de-platano-maduro.png',
       },
     ],
   },
 
   Especialidades: {
     intro: 'Bolones y tigrillos, con opciones para elegir a tu manera.',
-    image: '/tigrillo-editorial.png',
-
     items: [
       {
         name: 'Bolón',
         price: '$1,25',
         description: 'Queso o chicharrón',
-        image: '/bolon-editorial.png',
+        image: '/bolon.png',
       },
       {
         name: 'Bolón mixto',
         price: '$1,50',
         description: 'Queso + chicharrón',
+        image: '/bolon-mixto.png',
       },
       {
         name: 'Bolón de queso o chicharrón + carne',
         price: '$3,00',
+        image: '/bolon-queso-chicharron-carne.png',
       },
       {
         name: 'Bolón mixto + carne',
         price: '$3,25',
+        image: '/bolon-mixto-carne.png',
       },
       {
         name: 'Bolón especial',
         price: '$3,00',
         description:
           'Queso o chicharrón + tocino + mozzarella + ensalada + salsas',
+        image: '/bolon-especial.png',
       },
       {
         name: 'Bolón especial + huevo',
         price: '$3,25',
         description:
           'Queso o chicharrón + tocino + mozzarella + ensalada + huevo + salsas',
+        image: '/bolon-especial-huevo.png',
       },
       {
         name: 'Bolón especial mixto + huevo',
         price: '$3,50',
         description:
           'Mixto + tocino + mozzarella + huevo + ensalada + salsas',
+        image: '/bolon-especial-mixto-huevo.png',
       },
       {
         name: 'Tigrillo',
         price: '$3,25',
-        image: '/tigrillo-editorial.png',
+        image: '/tigrillo.png',
       },
       {
         name: 'Tigrillo + carne',
         price: '$3,75',
+        image: '/tigrillo-carne.png',
       },
       {
         name: 'Tigrillo completo',
         price: '$4,75',
         description: 'Carne + chorizo + huevo + queso',
+        image: '/tigrillo-completo.png',
       },
     ],
   },
 
   'Comida rápida': {
     intro: 'Opciones para cuando el antojo pide algo más contundente.',
-    image: '/alitas-editorial.png',
-
     items: [
       {
         name: 'Hamburguesa especial',
         price: '$3,75',
+        image: '/hamburguesa-especial.png',
       },
       {
         name: 'Hamburguesa normal',
         price: '$3,00',
+        image: '/hamburguesa-normal.png',
       },
       {
         name: 'Hot Dog de 32 cm',
         price: '$3,75',
+        image: '/hot-dog-32-cm.png',
       },
       {
         name: 'Hot Dog normal',
         price: '$2,50',
+        image: '/hot-dog-normal.png',
       },
       {
         name: 'Cubano',
         price: '$3,25',
+        image: '/cubano.png',
       },
       {
         name: 'Papipollo',
         price: '$2,75',
+        image: '/papipollo.png',
       },
       {
         name: 'Arroz con pollo broaster',
         price: '$3,50',
+        image: '/arroz-con-pollo-broaster.png',
       },
       {
         name: 'Seco de carne',
         price: '$3,25',
+        image: '/seco-de-carne.png',
       },
       {
         name: 'Salchipapa',
         price: '$2,00',
+        image: '/salchipapa.png',
       },
     ],
   },
@@ -216,110 +243,116 @@ const menu: Record<Category, MenuCategory> = {
   'Alitas de pollo': {
     intro:
       'Elige tu cantidad y tu sabor. La porción de papas se ajusta al tamaño de cada combo.',
-
-    image: '/alitas-editorial.png',
-
     items: [
       {
         name: 'Combo 1 · 5 alitas',
         price: '$4,70',
         description:
           'BBQ · Miel & Mostaza · Maracuyá · Búfalo · Piña · Queso + papas + tomate + salsas',
-        image: '/alitas-editorial.png',
+        image: '/combo-5-alitas.png',
       },
       {
         name: 'Combo 2 · 10 alitas',
         price: '$8,90',
         description:
           'BBQ · Miel & Mostaza · Maracuyá · Búfalo · Piña · Queso + papas + tomate + salsas',
+        image: '/combo-10-alitas.png',
       },
       {
         name: 'Combo 3 · 15 alitas',
         price: '$12,70',
         description:
           'BBQ · Miel & Mostaza · Maracuyá · Búfalo · Piña · Queso + papas + tomate + salsas',
+        image: '/combo-15-alitas.png',
       },
       {
         name: 'Combo 4 · 20 alitas',
         price: '$16,70',
         description:
           'BBQ · Miel & Mostaza · Maracuyá · Búfalo · Piña · Queso + papas + tomate + salsas',
+        image: '/combo-20-alitas.png',
       },
       {
         name: 'Combo 5 · 25 alitas',
         price: '$20,75',
         description:
           'BBQ · Miel & Mostaza · Maracuyá · Búfalo · Piña · Queso + papas + tomate + salsas',
+        image: '/combo-25-alitas.png',
       },
     ],
   },
 
   'Bebidas calientes': {
     intro: 'Para acompañar la conversación y quedarse un poco más.',
-
-    image: '/cafe-editorial.png',
-
     items: [
       {
         name: 'Tinto',
         price: '$1,00',
         description: 'Café pasado',
-        image: '/cafe-editorial.png',
+        image: '/tinto.png',
       },
       {
         name: 'Chocolate',
         price: '$1,75',
+        image: '/chocolate.png',
       },
       {
         name: 'Colada morada',
         price: '$1,75',
+        image: '/colada-morada.png',
       },
       {
         name: 'Morocho',
         price: '$1,50',
+        image: '/morocho.png',
       },
       {
         name: 'Aguas aromáticas',
         price: '$1,00',
         description:
           'Horchata · Manzanilla · Cedrón · Hierba Luisa',
+        image: '/aguas-aromaticas.png',
       },
     ],
   },
 
   'Bebidas frías': {
     intro: 'Jugos, batidos y bebidas para refrescar el momento.',
-
-    image: '/cafe-editorial.png',
-
     items: [
       {
         name: 'Jugo de coco',
         price: '$1,25',
+        image: '/jugo-de-coco.png',
       },
       {
         name: 'Jugo de mora',
         price: '$1,50',
+        image: '/jugo-de-mora.png',
       },
       {
         name: 'Jugo de tomate',
         price: '$1,50',
+        image: '/jugo-de-tomate.png',
       },
       {
         name: 'Batido de mora',
         price: '$1,75',
+        image: '/batido-de-mora.png',
       },
       {
         name: 'Batido de fresa',
         price: '$1,75',
+        image: '/batido-de-fresa.png',
       },
       {
         name: 'Batido de tomate',
         price: '$1,75',
+        image: '/batido-de-tomate.png',
       },
       {
         name: 'Colas',
         price: '$0,80',
+        image: '/colas.png',
       },
     ],
   },
@@ -337,7 +370,6 @@ type MenuView =
 type MenuDisplaySection = {
   label?: string
   items: MenuItem[]
-  fallbackImage: string
 }
 
 const las5EsquinasItems: MenuItem[] = [
@@ -345,13 +377,13 @@ const las5EsquinasItems: MenuItem[] = [
     name: 'Galletas',
     price: 'Consultar',
     description: 'Producto para llevar de Las 5 Esquinas.',
-    image: '/cafe-editorial.png',
+    image: '/galletas.png',
   },
   {
     name: 'Café Típico Aroma',
     price: 'Consultar',
     description: 'Café para llevar y preparar en casa.',
-    image: '/cafe-editorial.png',
+    image: '/cafe-tipico-aroma.png',
   },
 ]
 
@@ -360,7 +392,6 @@ const menuViews: Record<MenuView, { sections: MenuDisplaySection[] }> = {
     sections: [
       {
         items: menu.Tradicionales.items,
-        fallbackImage: menu.Tradicionales.image,
       },
     ],
   },
@@ -368,7 +399,6 @@ const menuViews: Record<MenuView, { sections: MenuDisplaySection[] }> = {
     sections: [
       {
         items: menu.Especialidades.items,
-        fallbackImage: menu.Especialidades.image,
       },
     ],
   },
@@ -376,7 +406,6 @@ const menuViews: Record<MenuView, { sections: MenuDisplaySection[] }> = {
     sections: [
       {
         items: menu['Comida rápida'].items,
-        fallbackImage: menu['Comida rápida'].image,
       },
     ],
   },
@@ -384,7 +413,6 @@ const menuViews: Record<MenuView, { sections: MenuDisplaySection[] }> = {
     sections: [
       {
         items: menu['Alitas de pollo'].items,
-        fallbackImage: menu['Alitas de pollo'].image,
       },
     ],
   },
@@ -393,12 +421,10 @@ const menuViews: Record<MenuView, { sections: MenuDisplaySection[] }> = {
       {
         label: 'Bebidas calientes',
         items: menu['Bebidas calientes'].items,
-        fallbackImage: menu['Bebidas calientes'].image,
       },
       {
         label: 'Bebidas frías',
         items: menu['Bebidas frías'].items,
-        fallbackImage: menu['Bebidas frías'].image,
       },
     ],
   },
@@ -406,7 +432,6 @@ const menuViews: Record<MenuView, { sections: MenuDisplaySection[] }> = {
     sections: [
       {
         items: las5EsquinasItems,
-        fallbackImage: '/cafe-editorial.png',
       },
     ],
   },
@@ -438,7 +463,7 @@ const houseHighlights = [
     price: '$4,75',
     description:
       'Bolón mixto bañado en salsa de queso, con mozzarella, cheddar, tocino crocante, huevo frito y toque de sal prieta.',
-    image: '/bolon-editorial.png',
+    image: '/bolon-las-5-esquinas.png',
   },
 
   {
@@ -446,7 +471,7 @@ const houseHighlights = [
     price: '$4,75',
     description:
       'Carne + chorizo + huevo + queso.',
-    image: '/tigrillo-editorial.png',
+    image: '/tigrillo-completo.png',
   },
 
   {
@@ -454,7 +479,7 @@ const houseHighlights = [
     price: '$2,90',
     description:
       'Hecho como antes, en tela y sin prisa. Se sirve con la chuspa, la taza y el agua caliente para disfrutarlo como siempre fue.',
-    image: '/cafe-editorial.png',
+    image: '/cafe-de-origen-en-chuspa.png',
   },
 ]
 
@@ -737,20 +762,32 @@ function Header() {
 }
 
 function Hero() {
+  const [heroImageIndex, setHeroImageIndex] = useState(0)
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setHeroImageIndex((current) => (current + 1) % heroImages.length)
+    }, 5000)
+
+    return () => window.clearInterval(interval)
+  }, [])
+
   return (
     <section
       id="inicio"
       className="hero-full"
     >
-      <Image
-        src="/cafe-editorial.png"
-        alt=""
-        fill
-        priority
-        aria-hidden="true"
-        className="hero-photo"
-        sizes="100vw"
-      />
+      <div className="hero-photo-stack" aria-hidden="true">
+        {heroImages.map((image, index) => (
+          <div
+            key={image}
+            className={`hero-photo ${
+              index === heroImageIndex ? 'hero-photo-active' : ''
+            }`}
+            style={{ backgroundImage: `url("${image}")` }}
+          />
+        ))}
+      </div>
 
       <div className="hero-overlay" />
 
@@ -774,7 +811,11 @@ function Hero() {
           />
         </div>
 
-        <p className="hero-copy" data-animate="up" style={{ transitionDelay: '100ms' }}>
+        <p
+          className="hero-copy"
+          data-animate="up"
+          style={{ transitionDelay: '100ms' }}
+        >
           Un espacio pensado
           <br className="hidden sm:block" />{' '}
           para sentirse en casa
@@ -820,7 +861,7 @@ function Intro() {
 
         <div className="intro-copy-block" data-animate="right">
           <h2 className="display-title">
-           Tradición, sabor y buenos momentos en un solo lugar.
+            Tradición, sabor y buenos momentos en un solo lugar.
           </h2>
 
           <p className="body-copy">
@@ -878,29 +919,29 @@ function HouseHighlights() {
               style={{ transitionDelay: `${index * 110}ms` }}
             >
               <article className="house-card">
-              <div className="house-image">
-                <Image
-                  src={item.image}
-                  alt={item.name}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 900px) 100vw, 33vw"
-                />
-              </div>
-
-              <div className="house-card-copy">
-                <div className="house-card-topline">
-                  <h3>{item.name}</h3>
-
-                  <span className="house-price">
-                    {item.price}
-                  </span>
+                <div className="house-image">
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 900px) 100vw, 33vw"
+                  />
                 </div>
 
-                <p className="house-description">
-                  {item.description}
-                </p>
-              </div>
+                <div className="house-card-copy">
+                  <div className="house-card-topline">
+                    <h3>{item.name}</h3>
+
+                    <span className="house-price">
+                      {item.price}
+                    </span>
+                  </div>
+
+                  <p className="house-description">
+                    {item.description}
+                  </p>
+                </div>
               </article>
             </div>
           ))}
@@ -936,10 +977,10 @@ function MenuSection() {
     setActive(menuNavigationOrder[nextIndex])
   }
 
-  const openProduct = (item: MenuItem, fallbackImage: string) => {
+  const openProduct = (item: MenuItem) => {
     setSelectedProduct({
       ...item,
-      resolvedImage: item.image ?? fallbackImage,
+      resolvedImage: item.image,
     })
   }
 
@@ -965,8 +1006,8 @@ function MenuSection() {
 
   const productWhatsapp = selectedProduct
     ? `${whatsapp}?text=${encodeURIComponent(
-        `Hola, quisiera pedir ${selectedProduct.name}.`,
-      )}`
+      `Hola, quisiera pedir ${selectedProduct.name}.`,
+    )}`
     : whatsapp
 
   return (
@@ -1035,9 +1076,8 @@ function MenuSection() {
             {activeView.sections.map((section, sectionIndex) => (
               <div
                 key={`${active}-${section.label ?? sectionIndex}`}
-                className={`menu-page-section ${
-                  active === 'Bebidas' ? 'menu-page-section-drinks' : ''
-                }`}
+                className={`menu-page-section ${active === 'Bebidas' ? 'menu-page-section-drinks' : ''
+                  }`}
               >
                 {section.label && (
                   <h3 className="menu-page-section-title">
@@ -1046,18 +1086,17 @@ function MenuSection() {
                 )}
 
                 <div
-                  className={`menu-product-list ${
-                    active === 'Tradicionales' || active === 'Alitas'
+                  className={`menu-product-list ${active === 'Tradicionales' || active === 'Alitas'
                       ? 'menu-product-list-compact'
                       : ''
-                  }`}
+                    }`}
                 >
                   {section.items.map((item) => (
                     <button
                       key={`${active}-${section.label ?? 'main'}-${item.name}`}
                       type="button"
                       className="menu-product-row"
-                      onClick={() => openProduct(item, section.fallbackImage)}
+                      onClick={() => openProduct(item)}
                       aria-label={`Ver ${item.name}`}
                     >
                       <span className="menu-product-row-main">
@@ -1245,8 +1284,8 @@ function Location() {
       <div className="location-frame">
         <div className="location-image" data-animate="left">
           <Image
-            src="/alitas-editorial.png"
-            alt="Plato servido en Las 5 Esquinas"
+            src="/local.png"
+            alt="Local de Las 5 Esquinas en Cuenca, Ecuador"
             fill
             className="object-cover"
             sizes="(max-width: 900px) 100vw, 50vw"
@@ -1273,7 +1312,7 @@ function Location() {
             <address className="location-address">
               Ricaurte - 5 Esquinas
               <br />
-              Antonio Ricaurte 
+              Antonio Ricaurte
               <br />
               y Vicente Pacheco 410
               <br />
@@ -1362,16 +1401,16 @@ function SocialSection() {
                 className="social-cup-link"
                 aria-label={`Abrir ${item.label} de Las 5 Esquinas`}
               >
-              <div className="social-cup-image-wrap">
-                <Image
-                  src={item.image}
-                  alt={`${item.label} de Las 5 Esquinas`}
-                  width={520}
-                  height={520}
-                  className="social-cup-image"
-                  sizes="(max-width: 640px) 44vw, (max-width: 1024px) 22vw, 20vw"
-                />
-              </div>
+                <div className="social-cup-image-wrap">
+                  <Image
+                    src={item.image}
+                    alt={`${item.label} de Las 5 Esquinas`}
+                    width={520}
+                    height={520}
+                    className="social-cup-image"
+                    sizes="(max-width: 640px) 44vw, (max-width: 1024px) 22vw, 20vw"
+                  />
+                </div>
 
                 <span className="social-cup-label">
                   {item.label}
