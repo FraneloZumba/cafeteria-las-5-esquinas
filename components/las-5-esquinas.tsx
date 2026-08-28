@@ -103,6 +103,10 @@ const menu: Record<Category, MenuCategory> = {
         name: 'Tostada',
         price: '$1,50',
       },
+      {
+        name: 'Torta de platano maduro',
+        price: '$2,25',
+      },
     ],
   },
 
@@ -344,7 +348,7 @@ const las5EsquinasItems: MenuItem[] = [
     image: '/cafe-editorial.png',
   },
   {
-    name: 'Café para moler',
+    name: 'Café Típico Aroma',
     price: 'Consultar',
     description: 'Café para llevar y preparar en casa.',
     image: '/cafe-editorial.png',
