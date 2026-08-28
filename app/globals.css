@@ -227,32 +227,13 @@ a:hover {
   flex-shrink: 0;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
-  border:
-    1.5px
-    solid
-    rgba(255, 250, 242, 0.9);
-
-  border-radius: 50%;
-
-  background:
-    rgba(255, 255, 255, 0.03);
-
-  color: #fffaf2;
-
-  font-family:
-    var(--font-dm-serif),
-    Georgia,
-    serif;
-
-  font-size: 1.45rem;
-
-  font-style: italic;
-
-  backdrop-filter: blur(5px);
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  backdrop-filter: none;
 }
 
 .brand-name {

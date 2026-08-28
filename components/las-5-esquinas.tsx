@@ -650,7 +650,14 @@ function Brand({
       aria-label="Las 5 Esquinas, inicio"
     >
       <span className="brand-mark">
-        5
+        <Image
+          src="/logo.png"
+          alt=""
+          width={54}
+          height={54}
+          className="brand-mark-image"
+          aria-hidden="true"
+        />
       </span>
 
       <span className="brand-name">
