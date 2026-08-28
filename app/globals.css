@@ -825,7 +825,7 @@ a:hover {
 }
 
 /* =========================================================
-   MENÚ — CUADERNO / TABLAS2
+   MENÚ — LIBRETA COMPLETA / CATEGORÍAS
 ========================================================= */
 
 .menu-section {
@@ -850,257 +850,296 @@ a:hover {
   z-index: -1;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(62, 39, 24, 0.14), rgba(62, 39, 24, 0.07)),
-    rgba(46, 29, 18, 0.06);
+    linear-gradient(180deg, rgba(62, 39, 24, 0.11), rgba(62, 39, 24, 0.05)),
+    rgba(46, 29, 18, 0.04);
 }
 
-/*
-  En escritorio esta sección está dimensionada para verse al 100 %
-  aproximadamente como la versión anterior al 75 % de zoom.
-*/
 .menu-shell {
-  width: min(885px, calc(100% - 40px));
+  width: min(1540px, calc(100% - 72px));
   margin: 0 auto;
-  padding-top: 108px;
-  padding-bottom: 78px;
-}
-
-.menu-section-heading {
-  margin: 0 0 24px 7px;
-}
-
-.menu-section-kicker {
-  margin: 0 0 0.48rem;
-  color: rgba(255, 250, 242, 0.92);
-  font-size: 0.64rem;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: 0.29em;
-  text-transform: uppercase;
-}
-
-.menu-section-title {
-  margin: 0;
-  color: #fffaf2;
-  font-family: var(--font-dm-serif), Georgia, serif;
-  font-size: clamp(2.35rem, 3.25vw, 3.9rem);
-  font-weight: 400;
-  line-height: 0.95;
-  letter-spacing: -0.045em;
-  text-shadow: 0 3px 20px rgba(58, 36, 22, 0.18);
+  padding-top: 96px;
+  padding-bottom: 88px;
 }
 
 .menu-notebook {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  min-height: 428px;
+  min-height: 760px;
   padding:
-    clamp(20px, 1.95vw, 31px)
-    clamp(41px, 3.75vw, 59px)
-    clamp(22px, 2.25vw, 35px)
-    clamp(69px, 6vw, 99px);
-  color: #362d27;
+    clamp(50px, 4.1vw, 72px)
+    clamp(74px, 6vw, 108px)
+    clamp(54px, 4.6vw, 82px)
+    clamp(138px, 9.5vw, 178px);
+  color: #302722;
   background-image: url('/hojadenotas.png');
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
-  filter: drop-shadow(0 14px 24px rgba(77, 47, 28, 0.13));
+  filter: drop-shadow(0 18px 34px rgba(77, 47, 28, 0.16));
 }
 
 .menu-notebook-top {
   display: grid;
-  grid-template-columns: minmax(165px, 0.8fr) minmax(375px, 1.45fr);
-  align-items: center;
-  gap: clamp(16px, 2.25vw, 36px);
-  margin-bottom: 14px;
+  grid-template-columns: minmax(300px, 0.85fr) minmax(610px, 1.3fr);
+  align-items: start;
+  gap: clamp(36px, 4vw, 70px);
+  width: 100%;
+  padding-bottom: 14px;
+}
+
+.menu-notebook-heading {
+  min-width: 0;
+}
+
+.menu-notebook-title {
+  margin: 0;
+  color: #171311;
+  font-family: var(--font-dm-serif), Georgia, serif;
+  font-size: clamp(3rem, 4.1vw, 5.15rem);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
 }
 
 .menu-hand-title {
-  margin: 0;
+  margin: 0.95rem 0 0;
   color: #181411;
   font-family: var(--font-sue-ellen), 'Sue Ellen Francisco', cursive;
-  font-size: clamp(2.25rem, 3vw, 3.38rem);
+  font-size: clamp(2rem, 2.65vw, 3.2rem);
   font-weight: 400;
   line-height: 0.9;
-  white-space: nowrap;
-  transform: rotate(-1.2deg);
+  transform: rotate(-0.9deg);
 }
 
 .menu-notebook-tabs {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 7px 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px 16px;
   align-items: center;
+  width: 100%;
+  padding-top: 2px;
 }
 
 .menu-notebook-tabs button {
-  min-height: 32px;
-  padding: 0.44rem 0.72rem;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0.7rem 1rem;
   border: 0;
   border-radius: 999px;
-  background: rgba(57, 50, 45, 0.94);
-  color: rgba(255, 250, 242, 0.96);
-  font-size: clamp(0.72rem, 0.9vw, 0.9rem);
+  background: rgba(57, 50, 45, 0.92);
+  color: rgba(255, 250, 242, 0.97);
+  font-size: clamp(0.92rem, 1.15vw, 1.18rem);
   font-weight: 500;
-  line-height: 1;
+  line-height: 1.05;
   white-space: nowrap;
-  box-shadow: 0 3px 7px rgba(54, 41, 33, 0.12);
+  box-shadow: 0 4px 10px rgba(54, 41, 33, 0.12);
   transition:
     transform 0.22s ease,
     background-color 0.22s ease,
     box-shadow 0.22s ease;
 }
 
-.menu-notebook-tabs button:nth-child(1) {
-  grid-column: 1 / 3;
-}
-
-.menu-notebook-tabs button:nth-child(2) {
-  grid-column: 3 / 5;
-}
-
-.menu-notebook-tabs button:nth-child(3) {
-  grid-column: 5 / 7;
-}
-
-.menu-notebook-tabs button:nth-child(4) {
-  grid-column: 2 / 4;
-}
-
-.menu-notebook-tabs button:nth-child(5) {
-  grid-column: 4 / 6;
-}
-
 .menu-notebook-tabs button:hover {
   color: #fffaf2;
   background: #514842;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .menu-notebook-tabs button.active {
   background: #d78349;
   color: #fffaf2;
-  box-shadow: 0 4px 10px rgba(167, 92, 42, 0.22);
+  box-shadow: 0 7px 16px rgba(167, 92, 42, 0.2);
 }
 
-.menu-products-window {
+.menu-touch-hint {
+  margin: 8px 0 14px;
+  color: rgba(68, 56, 49, 0.7);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.045em;
+}
+
+.menu-page {
   position: relative;
-  padding-right: 40px;
-}
-
-.menu-products-grid {
+  z-index: 2;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(17px, 1.75vw, 25px);
-  align-items: stretch;
+  flex: 1;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
+  gap: 24px 54px;
+  min-height: 360px;
+  padding: 16px 50px 22px;
 }
 
-.menu-product-card {
+.menu-page-next {
+  animation: menu-page-in-next 380ms cubic-bezier(.2,.8,.2,1) both;
+}
+
+.menu-page-prev {
+  animation: menu-page-in-prev 380ms cubic-bezier(.2,.8,.2,1) both;
+}
+
+.menu-page-fade {
+  animation: menu-page-in-fade 320ms ease both;
+}
+
+.menu-page-section {
   min-width: 0;
-  overflow: hidden;
-  border: 1px solid rgba(88, 75, 66, 0.17);
-  background: rgba(255, 254, 250, 0.92);
-  color: #332923;
-  box-shadow:
-    0 4px 7px rgba(64, 47, 37, 0.15),
-    0 13px 20px rgba(64, 47, 37, 0.07);
-  transform: rotate(var(--card-tilt, 0deg));
-  transition:
-    transform 0.28s ease,
-    box-shadow 0.28s ease;
 }
 
-.menu-product-card:nth-child(1) {
-  --card-tilt: -0.35deg;
+.menu-page-section:not(.menu-page-section-drinks) {
+  grid-column: 1 / -1;
 }
 
-.menu-product-card:nth-child(2) {
-  --card-tilt: 0.2deg;
+.menu-page-section-title {
+  margin: 0 0 14px;
+  color: #30251f;
+  font-family: var(--font-dm-serif), Georgia, serif;
+  font-size: clamp(1.65rem, 1.9vw, 2.15rem);
+  font-weight: 400;
+  line-height: 1;
 }
 
-.menu-product-card:nth-child(3) {
-  --card-tilt: -0.12deg;
+.menu-product-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 46px;
 }
 
-.menu-product-card:hover {
-  transform: translateY(-3px) rotate(var(--card-tilt, 0deg));
-  box-shadow:
-    0 6px 11px rgba(64, 47, 37, 0.17),
-    0 17px 25px rgba(64, 47, 37, 0.1);
+.menu-product-list-compact {
+  max-width: 1080px;
+  margin-inline: auto;
 }
 
-.menu-product-image {
+.menu-page-section-drinks .menu-product-list {
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.menu-product-row {
   position: relative;
-  width: calc(100% - 16px);
-  aspect-ratio: 1 / 1.08;
-  margin: 8px 8px 0;
-  overflow: hidden;
-  background: #d7c8b9;
-  border: 1px solid rgba(65, 53, 45, 0.13);
-}
-
-.menu-product-image img {
-  object-fit: cover;
-  transition: transform 0.65s ease;
-}
-
-.menu-product-card:hover .menu-product-image img {
-  transform: scale(1.035);
-}
-
-.menu-product-copy {
-  min-height: 74px;
-  padding: 10px 11px 11px;
-}
-
-.menu-product-topline {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: start;
-  gap: 0.55rem;
+  gap: 1rem;
+  width: 100%;
+  min-width: 0;
+  min-height: 72px;
+  padding: 12px 14px 11px;
+  border: 0;
+  border-bottom: 1px solid rgba(76, 61, 52, 0.08);
+  border-radius: 12px;
+  background: transparent;
+  color: #312720;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    transform 0.22s ease,
+    background-color 0.22s ease,
+    box-shadow 0.22s ease;
 }
 
-.menu-product-topline h3 {
-  margin: 0;
-  font-family: var(--font-dm-serif), Georgia, serif;
-  font-size: clamp(0.95rem, 1.08vw, 1.1rem);
-  font-weight: 400;
-  line-height: 1.04;
-  letter-spacing: -0.025em;
-  overflow-wrap: normal;
+.menu-product-row::after {
+  content: '↗';
+  position: absolute;
+  right: 10px;
+  bottom: 7px;
+  color: #c77743;
+  font-size: 0.72rem;
+  opacity: 0;
+  transform: translate(-4px, 2px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
-.menu-product-topline span {
-  padding-top: 0.12rem;
-  color: #c87944;
+.menu-product-row:hover {
+  background: rgba(255, 250, 242, 0.46);
+  box-shadow: 0 7px 18px rgba(69, 48, 34, 0.07);
+  transform: translateX(4px);
+}
+
+.menu-product-row:hover::after {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.menu-product-row-main {
+  display: block;
+  min-width: 0;
+}
+
+.menu-product-row-name {
+  display: block;
+  color: #2d231d;
   font-family: var(--font-dm-serif), Georgia, serif;
-  font-size: 0.75rem;
+  font-size: clamp(1.08rem, 1.2vw, 1.34rem);
+  line-height: 1.08;
+  letter-spacing: -0.018em;
+}
+
+.menu-product-row-description {
+  display: block;
+  max-width: 94%;
+  margin-top: 0.34rem;
+  color: #665950;
+  font-size: 0.77rem;
+  line-height: 1.42;
+}
+
+.menu-product-row-price {
+  padding-top: 0.06rem;
+  padding-right: 18px;
+  color: #c87843;
+  font-family: var(--font-dm-serif), Georgia, serif;
+  font-size: clamp(1.05rem, 1.12vw, 1.28rem);
   line-height: 1;
   white-space: nowrap;
 }
 
-.menu-product-copy p {
-  margin: 0.48rem 0 0;
-  color: #62574f;
-  font-size: 0.62rem;
-  line-height: 1.42;
-  overflow-wrap: normal;
+.menu-alitas-note,
+.menu-house-note {
+  grid-column: 1 / -1;
+  max-width: 920px;
+  margin: 20px auto 0;
+  padding: 0;
+  background: transparent;
+  color: #65564d;
+  font-size: 0.82rem;
+  line-height: 1.7;
+  text-align: center;
 }
 
-.menu-next-button {
+.menu-alitas-note strong {
+  color: #46372f;
+  font-weight: 800;
+}
+
+.menu-house-note {
+  max-width: 660px;
+  margin-top: 28px;
+  color: #55463d;
+  font-family: var(--font-sue-ellen), 'Sue Ellen Francisco', cursive;
+  font-size: clamp(1.45rem, 1.8vw, 2rem);
+  line-height: 1.15;
+}
+
+.menu-category-arrow {
   position: absolute;
-  top: 50%;
-  right: -9px;
+  z-index: 5;
+  top: 57%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
   border: 0;
   border-radius: 50%;
   background: #df8448;
   color: #fffaf2;
-  box-shadow: 0 8px 17px rgba(127, 70, 34, 0.19);
+  box-shadow: 0 10px 24px rgba(127, 70, 34, 0.2);
   transform: translateY(-50%);
   transition:
     transform 0.24s ease,
@@ -1108,32 +1147,43 @@ a:hover {
     box-shadow 0.24s ease;
 }
 
-.menu-next-button svg {
-  width: 32px;
-  height: 32px;
+.menu-category-arrow-left {
+  left: 88px;
 }
 
-.menu-next-button:hover {
+.menu-category-arrow-right {
+  right: 62px;
+}
+
+.menu-category-arrow:hover {
+  color: #fffaf2;
   background: #d4793e;
-  transform: translateY(-50%) scale(1.05);
-  box-shadow: 0 10px 20px rgba(127, 70, 34, 0.26);
+  transform: translateY(-50%) scale(1.06);
+  box-shadow: 0 13px 28px rgba(127, 70, 34, 0.26);
+}
+
+.menu-notebook-footer {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: auto;
+  padding-top: 26px;
+  padding-right: 220px;
 }
 
 .menu-whatsapp-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.45rem;
-  min-height: 40px;
-  margin-top: 21px;
-  margin-left: 7px;
-  padding: 0.62rem 1rem;
+  gap: 0.55rem;
+  min-height: 52px;
+  padding: 0.82rem 1.45rem;
   border-radius: 999px;
   background: #d78349;
   color: #fffaf2;
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  box-shadow: 0 8px 18px rgba(105, 61, 34, 0.16);
+  box-shadow: 0 9px 20px rgba(105, 61, 34, 0.16);
 }
 
 .menu-whatsapp-button:hover {
@@ -1141,6 +1191,167 @@ a:hover {
   background: #cc773f;
   transform: translateY(-2px);
 }
+
+/* Modal del producto */
+.menu-product-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 220;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(24, 17, 13, 0.74);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: menu-modal-backdrop-in 220ms ease both;
+}
+
+.menu-product-modal {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
+  width: min(860px, 100%);
+  max-height: min(720px, calc(100svh - 48px));
+  overflow: hidden;
+  border: 1px solid rgba(79, 57, 44, 0.14);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(255,255,255,.4), transparent 34%),
+    #f4eadb;
+  color: #30251f;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.34);
+  animation: menu-modal-in 320ms cubic-bezier(.2,.8,.2,1) both;
+}
+
+.menu-product-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255,255,255,.38);
+  border-radius: 50%;
+  background: rgba(35, 27, 22, 0.76);
+  color: #fffaf2;
+  backdrop-filter: blur(10px);
+}
+
+.menu-product-modal-close:hover {
+  color: #fffaf2;
+  background: #2d211b;
+  transform: rotate(3deg) scale(1.04);
+}
+
+.menu-product-modal-image {
+  position: relative;
+  min-height: 470px;
+  background: #cdb9a6;
+}
+
+.menu-product-modal-image img {
+  object-fit: cover;
+}
+
+.menu-product-modal-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(34px, 4vw, 56px);
+}
+
+.menu-product-modal-eyebrow {
+  margin: 0 0 0.8rem;
+  color: #b56e40;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.menu-product-modal-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 1rem;
+}
+
+.menu-product-modal-heading h3 {
+  margin: 0;
+  color: #2d211b;
+  font-family: var(--font-dm-serif), Georgia, serif;
+  font-size: clamp(2rem, 3vw, 3rem);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+.menu-product-modal-heading span {
+  padding-top: 0.25rem;
+  color: #c87843;
+  font-family: var(--font-dm-serif), Georgia, serif;
+  font-size: clamp(1.25rem, 1.8vw, 1.65rem);
+  white-space: nowrap;
+}
+
+.menu-product-modal-description {
+  margin: 1.25rem 0 0;
+  color: #66584f;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  text-align: justify;
+}
+
+.menu-product-modal-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: fit-content;
+  min-height: 48px;
+  margin-top: 1.7rem;
+  padding: 0.78rem 1.2rem;
+  border-radius: 999px;
+  background: #d78349;
+  color: #fffaf2;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.menu-product-modal-whatsapp:hover {
+  color: #fffaf2;
+  background: #cc773f;
+  transform: translateY(-2px);
+}
+
+@keyframes menu-page-in-next {
+  from { opacity: 0; transform: translateX(28px); filter: blur(2px); }
+  to { opacity: 1; transform: translateX(0); filter: blur(0); }
+}
+
+@keyframes menu-page-in-prev {
+  from { opacity: 0; transform: translateX(-28px); filter: blur(2px); }
+  to { opacity: 1; transform: translateX(0); filter: blur(0); }
+}
+
+@keyframes menu-page-in-fade {
+  from { opacity: 0.1; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes menu-modal-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes menu-modal-in {
+  from { opacity: 0; transform: translateY(20px) scale(.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
 
 /* =========================================================
    RESEÑAS
@@ -2353,57 +2564,74 @@ a:hover {
 }
 
 /* =========================================================
-   MENÚ — RESPONSIVE CUADERNO
+   MENÚ — RESPONSIVE LIBRETA
 ========================================================= */
 
-@media (max-width: 1050px) {
+@media (max-width: 1180px) {
   .menu-shell {
-    width: min(885px, calc(100% - 32px));
+    width: min(1060px, calc(100% - 42px));
   }
 
   .menu-notebook {
-    padding-left: clamp(64px, 7.5vw, 88px);
-    padding-right: clamp(36px, 4.5vw, 52px);
+    min-height: 780px;
+    padding-left: clamp(108px, 10vw, 140px);
+    padding-right: clamp(58px, 6vw, 80px);
   }
 
   .menu-notebook-top {
-    grid-template-columns: minmax(155px, 0.72fr) minmax(350px, 1.4fr);
-    gap: 20px;
+    grid-template-columns: minmax(260px, 0.78fr) minmax(500px, 1.3fr);
+    gap: 30px;
   }
 
-  .menu-products-window {
-    padding-right: 34px;
+  .menu-notebook-tabs {
+    gap: 10px;
   }
 
-  .menu-products-grid {
-    gap: 15px;
+  .menu-notebook-tabs button {
+    min-height: 40px;
+    padding-inline: 0.72rem;
+    font-size: 0.86rem;
   }
 
-  .menu-next-button {
-    right: -12px;
-    width: 48px;
-    height: 48px;
+  .menu-page {
+    gap: 18px 30px;
+    padding-left: 36px;
+    padding-right: 36px;
+  }
+
+  .menu-product-list {
+    gap-x: 28px;
+  }
+
+  .menu-category-arrow-left {
+    left: 58px;
+  }
+
+  .menu-category-arrow-right {
+    right: 38px;
+  }
+
+  .menu-notebook-footer {
+    padding-right: 160px;
   }
 }
 
-@media (max-width: 820px) {
+@media (max-width: 900px) {
   .menu-shell {
-    width: min(680px, calc(100% - 28px));
-    padding-top: 96px;
+    width: min(720px, calc(100% - 28px));
+    padding-top: 82px;
     padding-bottom: 72px;
   }
 
-  .menu-section-heading {
-    margin: 0 0 22px 5px;
-  }
-
-  .menu-section-title {
-    font-size: clamp(2.45rem, 7vw, 3.35rem);
-  }
-
+  /*
+    En móvil la hoja deja de tener una altura fija gigante.
+    Conserva un mínimo agradable, pero crece según la categoría activa.
+  */
   .menu-notebook {
-    min-height: 0;
-    padding: 30px 38px 34px 58px;
+    height: auto;
+    min-height: 780px;
+    padding: 52px 40px 76px 72px;
+    background-image: url('/hojadenotasvertical.png');
     background-size: 100% 100%;
     background-position: center;
   }
@@ -2411,205 +2639,303 @@ a:hover {
   .menu-notebook-top {
     grid-template-columns: 1fr;
     gap: 16px;
-    margin-bottom: 20px;
+    padding-bottom: 8px;
+  }
+
+  .menu-notebook-title {
+    font-size: clamp(3rem, 8vw, 4.4rem);
   }
 
   .menu-hand-title {
-    font-size: clamp(2.45rem, 7vw, 3.15rem);
-    white-space: normal;
+    margin-top: 0.55rem;
+    font-size: clamp(2.2rem, 6.5vw, 3.15rem);
   }
 
-  /* En tablet/móvil las cinco categorías siempre están visibles. */
   .menu-notebook-tabs {
-    display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 7px 8px;
-    width: 100%;
-    overflow: visible;
-    padding: 0;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
   }
 
-  .menu-notebook-tabs button,
-  .menu-notebook-tabs button:nth-child(n) {
-    min-width: 0;
-    min-height: 32px;
-    padding: 0.45rem 0.55rem;
-    font-size: 0.72rem;
+  .menu-notebook-tabs button {
+    min-height: 38px;
+    padding: 0.54rem 0.5rem;
+    font-size: 0.78rem;
   }
 
-  .menu-notebook-tabs button:nth-child(1) {
-    grid-column: 1 / 3;
+  .menu-touch-hint {
+    margin-top: 7px;
+    margin-bottom: 12px;
+    text-align: center;
   }
 
-  .menu-notebook-tabs button:nth-child(2) {
-    grid-column: 3 / 5;
+  .menu-page {
+    flex: 0 0 auto;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    min-height: 0;
+    padding: 14px 38px 24px;
   }
 
-  .menu-notebook-tabs button:nth-child(3) {
-    grid-column: 5 / 7;
+  .menu-page-section:not(.menu-page-section-drinks),
+  .menu-page-section-drinks {
+    grid-column: 1;
   }
 
-  .menu-notebook-tabs button:nth-child(4) {
-    grid-column: 2 / 4;
+  .menu-product-list,
+  .menu-page-section-drinks .menu-product-list {
+    grid-template-columns: 1fr;
+    gap: 6px;
   }
 
-  .menu-notebook-tabs button:nth-child(5) {
-    grid-column: 4 / 6;
+  .menu-product-list-compact {
+    max-width: none;
   }
 
-  .menu-products-window {
+  .menu-product-row {
+    min-height: 0;
+    padding: 13px 11px 12px;
+  }
+
+  .menu-product-row-name {
+    font-size: clamp(1.18rem, 3.8vw, 1.42rem);
+  }
+
+  .menu-product-row-description {
+    font-size: 0.74rem;
+  }
+
+  .menu-product-row-price {
+    font-size: 1.04rem;
+  }
+
+  .menu-alitas-note,
+  .menu-house-note {
+    margin-top: 18px;
+  }
+
+  .menu-category-arrow {
+    top: 57%;
+    width: 56px;
+    height: 56px;
+  }
+
+  .menu-category-arrow svg {
+    width: 34px;
+    height: 34px;
+  }
+
+  .menu-category-arrow-left {
+    left: 15px;
+  }
+
+  .menu-category-arrow-right {
+    right: 10px;
+  }
+
+  .menu-notebook-footer {
+    justify-content: center;
+    margin-top: auto;
+    padding-top: 32px;
     padding-right: 0;
   }
 
-  .menu-products-grid {
-    grid-template-columns: minmax(0, 1fr);
-    max-width: 340px;
-    margin-inline: auto;
+  .menu-product-modal {
+    grid-template-columns: 1fr;
+    width: min(560px, 100%);
+    max-height: calc(100svh - 36px);
+    overflow-y: auto;
   }
 
-  .menu-product-card:nth-child(n + 2) {
-    display: none;
+  .menu-product-modal-image {
+    min-height: 330px;
+    aspect-ratio: 1.3 / 1;
   }
 
-  .menu-product-image {
-    aspect-ratio: 1.1 / 1;
-  }
-
-  .menu-product-copy {
-    min-height: 92px;
-    padding: 13px 14px 14px;
-  }
-
-  .menu-product-topline h3 {
-    font-size: clamp(1.2rem, 4vw, 1.5rem);
-  }
-
-  .menu-product-topline span {
-    font-size: 0.88rem;
-  }
-
-  .menu-product-copy p {
-    font-size: 0.72rem;
-    line-height: 1.48;
-  }
-
-  .menu-next-button {
-    top: 50%;
-    right: -18px;
-    width: 48px;
-    height: 48px;
-  }
-
-  .menu-next-button svg {
-    width: 30px;
-    height: 30px;
-  }
-
-  .menu-whatsapp-button {
-    margin-left: 5px;
+  .menu-product-modal-copy {
+    padding: 30px 30px 34px;
   }
 }
 
 @media (max-width: 560px) {
   .menu-shell {
-    width: min(410px, calc(100% - 30px));
-    padding-top: 88px;
-    padding-bottom: 68px;
+    width: min(430px, calc(100% - 18px));
+    padding-top: 72px;
+    padding-bottom: 62px;
   }
 
-  .menu-section-heading {
-    margin: 0 0 20px 4px;
-  }
-
-  .menu-section-kicker {
-    font-size: 0.58rem;
-  }
-
-  .menu-section-title {
-    font-size: clamp(2.3rem, 10vw, 2.95rem);
-  }
-
+  /*
+    La altura se adapta al contenido: Tradicionales/Alitas quedan compactos,
+    mientras Especialidades, Comida Rápida y Bebidas expanden la hoja solas.
+  */
   .menu-notebook {
-    width: min(390px, 100%);
-    margin-inline: auto;
-    padding: 26px 18px 30px 42px;
-    background-size: 100% 100%;
-    background-position: center;
+    width: 100%;
+    height: auto;
+    min-height: 720px;
+    padding: 40px 18px 72px 44px;
   }
 
   .menu-notebook-top {
-    gap: 13px;
-    margin-bottom: 18px;
+    gap: 12px;
+  }
+
+  .menu-notebook-title {
+    max-width: 100%;
+    font-size: clamp(2.12rem, 9.6vw, 2.62rem);
+    line-height: 0.94;
+    letter-spacing: -0.055em;
+    white-space: nowrap;
   }
 
   .menu-hand-title {
-    font-size: clamp(2.15rem, 10vw, 2.7rem);
+    margin-top: 0.4rem;
+    font-size: clamp(1.82rem, 8.25vw, 2.3rem);
   }
 
   .menu-notebook-tabs {
-    gap: 6px 6px;
+  transform: translateX(-6px);
   }
 
-  .menu-notebook-tabs button,
-  .menu-notebook-tabs button:nth-child(n) {
-    min-height: 30px;
-    padding: 0.4rem 0.35rem;
+  .menu-notebook-tabs button {
+  min-height: 30px;
+  padding: 0.35rem 0.18rem;
+  font-size: 0.62rem;
+  }
+
+  .menu-touch-hint {
+    margin: 7px 0 12px;
+    font-size: 0.64rem;
+    letter-spacing: 0.03em;
+  }
+
+  .menu-page {
+    flex: 0 0 auto;
+    gap: 10px;
+    height: auto;
+    min-height: 0;
+    padding: 10px 24px 14px;
+  }
+
+  .menu-page-section-title {
+    margin-bottom: 8px;
+    font-size: 1.38rem;
+  }
+
+  .menu-product-list,
+  .menu-page-section-drinks .menu-product-list {
+    gap: 4px;
+  }
+
+  .menu-product-row {
+    min-height: 0;
+    gap: 0.55rem;
+    padding: 11px 8px 10px;
+    border-radius: 10px;
+  }
+
+  .menu-product-row-name {
+    font-size: clamp(1.05rem, 4.85vw, 1.25rem);
+  }
+
+  .menu-product-row-description {
+    max-width: 100%;
+    margin-top: 0.24rem;
     font-size: 0.66rem;
-    letter-spacing: -0.01em;
+    line-height: 1.38;
   }
 
-  .menu-products-grid {
-    max-width: 270px;
+  .menu-product-row-price {
+    padding-right: 6px;
+    font-size: 0.9rem;
   }
 
-  .menu-product-image {
-    width: calc(100% - 14px);
-    margin: 7px 7px 0;
-    aspect-ratio: 1.12 / 1;
+  .menu-product-row::after {
+    display: none;
   }
 
-  .menu-product-copy {
-    min-height: 82px;
-    padding: 11px 12px 12px;
+  .menu-category-arrow {
+    top: 50%;
+    width: 48px;
+    height: 48px;
   }
 
-  .menu-product-topline {
-    gap: 0.45rem;
+  .menu-category-arrow svg {
+    width: 29px;
+    height: 29px;
   }
 
-  .menu-product-topline h3 {
-    font-size: clamp(1.08rem, 5.2vw, 1.28rem);
+  .menu-category-arrow-left {
+    left: 5px;
   }
 
-  .menu-product-topline span {
-    font-size: 0.8rem;
+  .menu-category-arrow-right {
+    right: 3px;
   }
 
-  .menu-product-copy p {
-    margin-top: 0.48rem;
+  .menu-alitas-note,
+  .menu-house-note {
+    max-width: 88%;
+    margin-top: 16px;
+    padding: 0;
+    background: transparent;
+  }
+
+  .menu-alitas-note {
     font-size: 0.68rem;
-    line-height: 1.44;
+    line-height: 1.55;
   }
 
-  .menu-next-button {
-    right: -14px;
-    width: 44px;
-    height: 44px;
+  .menu-house-note {
+    font-size: 1.42rem;
+    line-height: 1.15;
   }
 
-  .menu-next-button svg {
-    width: 27px;
-    height: 27px;
+  .menu-notebook-footer {
+    margin-top: auto;
+    padding-top: 38px;
+    padding-bottom: 4px;
   }
 
   .menu-whatsapp-button {
-    min-height: 40px;
-    margin-top: 20px;
-    margin-left: 3px;
-    padding: 0.58rem 0.9rem;
-    font-size: 0.72rem;
+    min-height: 46px;
+    padding: 0.72rem 1rem;
+    font-size: 0.76rem;
+  }
+
+  .menu-product-modal-backdrop {
+    padding: 12px;
+  }
+
+  .menu-product-modal {
+    border-radius: 18px;
+    max-height: calc(100svh - 24px);
+  }
+
+  .menu-product-modal-image {
+    min-height: 270px;
+    aspect-ratio: 1.18 / 1;
+  }
+
+  .menu-product-modal-copy {
+    padding: 26px 22px 28px;
+  }
+
+  .menu-product-modal-heading h3 {
+    font-size: clamp(1.8rem, 8.5vw, 2.35rem);
+  }
+
+  .menu-product-modal-heading span {
+    font-size: 1.2rem;
+  }
+
+  .menu-product-modal-description {
+    font-size: 0.82rem;
+  }
+
+  .menu-product-modal-whatsapp {
+    width: 100%;
   }
 }
+
 
 /* =========================================================
    SCROLL REVEAL — V2 ROBUSTO
@@ -2697,30 +3023,6 @@ html.motion-enabled [data-animate].is-visible {
   width: 100%;
 }
 
-/* Al cambiar categoría o avanzar, las tarjetas respiran suavemente. */
-.menu-product-card {
-  animation: menu-card-soft-in 430ms ease both;
-}
-
-.menu-product-card:nth-child(2) {
-  animation-delay: 55ms;
-}
-
-.menu-product-card:nth-child(3) {
-  animation-delay: 110ms;
-}
-
-@keyframes menu-card-soft-in {
-  from {
-    opacity: 0.15;
-    filter: blur(2px);
-  }
-
-  to {
-    opacity: 1;
-    filter: blur(0);
-  }
-}
 
 /* =========================================================
    REDUCED MOTION

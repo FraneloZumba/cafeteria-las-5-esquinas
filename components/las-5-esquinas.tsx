@@ -4,8 +4,10 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import {
   ArrowUpRight,
+  ChevronLeft,
   ChevronRight,
   Star,
+  X,
 } from 'lucide-react'
 
 const whatsapp = 'https://wa.me/593983202196'
@@ -326,37 +328,105 @@ type MenuView =
   | 'Comida Rápida'
   | 'Alitas'
   | 'Bebidas'
+  | 'Las 5 Esquinas'
 
-const menuViews: Record<
-  MenuView,
+type MenuDisplaySection = {
+  label?: string
+  items: MenuItem[]
+  fallbackImage: string
+}
+
+const las5EsquinasItems: MenuItem[] = [
   {
-    categories: Category[]
-    fallbackImage: string
-  }
-> = {
+    name: 'Galletas',
+    price: 'Consultar',
+    description: 'Producto para llevar de Las 5 Esquinas.',
+    image: '/cafe-editorial.png',
+  },
+  {
+    name: 'Café para moler',
+    price: 'Consultar',
+    description: 'Café para llevar y preparar en casa.',
+    image: '/cafe-editorial.png',
+  },
+]
+
+const menuViews: Record<MenuView, { sections: MenuDisplaySection[] }> = {
   Tradicionales: {
-    categories: ['Tradicionales'],
-    fallbackImage: '/bolon-editorial.png',
+    sections: [
+      {
+        items: menu.Tradicionales.items,
+        fallbackImage: menu.Tradicionales.image,
+      },
+    ],
   },
   Especialidades: {
-    categories: ['Especialidades'],
-    fallbackImage: '/tigrillo-editorial.png',
+    sections: [
+      {
+        items: menu.Especialidades.items,
+        fallbackImage: menu.Especialidades.image,
+      },
+    ],
   },
   'Comida Rápida': {
-    categories: ['Comida rápida'],
-    fallbackImage: '/alitas-editorial.png',
+    sections: [
+      {
+        items: menu['Comida rápida'].items,
+        fallbackImage: menu['Comida rápida'].image,
+      },
+    ],
   },
   Alitas: {
-    categories: ['Alitas de pollo'],
-    fallbackImage: '/alitas-editorial.png',
+    sections: [
+      {
+        items: menu['Alitas de pollo'].items,
+        fallbackImage: menu['Alitas de pollo'].image,
+      },
+    ],
   },
   Bebidas: {
-    categories: ['Bebidas calientes', 'Bebidas frías'],
-    fallbackImage: '/cafe-editorial.png',
+    sections: [
+      {
+        label: 'Bebidas calientes',
+        items: menu['Bebidas calientes'].items,
+        fallbackImage: menu['Bebidas calientes'].image,
+      },
+      {
+        label: 'Bebidas frías',
+        items: menu['Bebidas frías'].items,
+        fallbackImage: menu['Bebidas frías'].image,
+      },
+    ],
+  },
+  'Las 5 Esquinas': {
+    sections: [
+      {
+        items: las5EsquinasItems,
+        fallbackImage: '/cafe-editorial.png',
+      },
+    ],
   },
 }
 
-const menuViewNames = Object.keys(menuViews) as MenuView[]
+// Orden visual de los seis botones, como en el mockup.
+const menuViewNames: MenuView[] = [
+  'Tradicionales',
+  'Comida Rápida',
+  'Bebidas',
+  'Especialidades',
+  'Alitas',
+  'Las 5 Esquinas',
+]
+
+// Orden de páginas para las flechas laterales.
+const menuNavigationOrder: MenuView[] = [
+  'Tradicionales',
+  'Especialidades',
+  'Comida Rápida',
+  'Alitas',
+  'Bebidas',
+  'Las 5 Esquinas',
+]
 
 const houseHighlights = [
   {
@@ -831,42 +901,77 @@ function HouseHighlights() {
 
 function MenuSection() {
   const [active, setActive] = useState<MenuView>('Tradicionales')
-  const [startIndex, setStartIndex] = useState(0)
+  const [pageDirection, setPageDirection] = useState<'next' | 'prev' | 'fade'>('fade')
+  const [selectedProduct, setSelectedProduct] = useState<
+    (MenuItem & { resolvedImage: string }) | null
+  >(null)
 
   const activeView = menuViews[active]
-  const activeItems = activeView.categories.flatMap(
-    (category) => menu[category].items,
-  )
-
-  const visibleItems = Array.from(
-    { length: Math.min(3, activeItems.length) },
-    (_, offset) => activeItems[(startIndex + offset) % activeItems.length],
-  )
 
   const chooseCategory = (category: MenuView) => {
+    if (category === active) return
+    setPageDirection('fade')
     setActive(category)
-    setStartIndex(0)
   }
 
-  const showNext = () => {
-    setStartIndex((current) =>
-      activeItems.length > 0
-        ? (current + 1) % activeItems.length
-        : 0,
-    )
+  const moveCategory = (direction: 'next' | 'prev') => {
+    const currentIndex = menuNavigationOrder.indexOf(active)
+    const offset = direction === 'next' ? 1 : -1
+    const nextIndex =
+      (currentIndex + offset + menuNavigationOrder.length) %
+      menuNavigationOrder.length
+
+    setPageDirection(direction)
+    setActive(menuNavigationOrder[nextIndex])
   }
+
+  const openProduct = (item: MenuItem, fallbackImage: string) => {
+    setSelectedProduct({
+      ...item,
+      resolvedImage: item.image ?? fallbackImage,
+    })
+  }
+
+  useEffect(() => {
+    if (!selectedProduct) return
+
+    const originalOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setSelectedProduct(null)
+      }
+    }
+
+    window.addEventListener('keydown', closeOnEscape)
+
+    return () => {
+      document.body.style.overflow = originalOverflow
+      window.removeEventListener('keydown', closeOnEscape)
+    }
+  }, [selectedProduct])
+
+  const productWhatsapp = selectedProduct
+    ? `${whatsapp}?text=${encodeURIComponent(
+        `Hola, quisiera pedir ${selectedProduct.name}.`,
+      )}`
+    : whatsapp
 
   return (
     <section id="menu" className="menu-section">
       <div className="menu-shell">
-        <div className="menu-section-heading" data-animate="left">
-          <p className="menu-section-kicker">Nuestro menú</p>
-          <h2 className="menu-section-title">Te presentamos todas las opciones que tenemos para tí.</h2>
-        </div>
-
-        <div className="menu-notebook" data-animate="zoom" style={{ transitionDelay: '100ms' }}>
+        <div
+          className="menu-notebook"
+          data-animate="zoom"
+          style={{ transitionDelay: '100ms' }}
+        >
           <div className="menu-notebook-top">
-            <p className="menu-hand-title">Elige con calma.</p>
+            <div className="menu-notebook-heading">
+              <h2 className="menu-notebook-title">Nuestro Menú</h2>
+              <p className="menu-hand-title">Elige con calma.</p>
+              <br />
+            </div>
 
             <div
               className="menu-notebook-tabs"
@@ -888,60 +993,173 @@ function MenuSection() {
             </div>
           </div>
 
-          <div className="menu-products-window" aria-live="polite">
-            <div className="menu-products-grid">
-              {visibleItems.map((item, offset) => (
-                <article
-                  key={`${active}-${startIndex}-${item.name}-${offset}`}
-                  className="menu-product-card"
+          <p className="menu-touch-hint">
+            Toca un producto para conocerlo.
+          </p>
+
+          <button
+            type="button"
+            className="menu-category-arrow menu-category-arrow-left"
+            onClick={() => moveCategory('prev')}
+            aria-label="Ver categoría anterior"
+          >
+            <ChevronLeft size={44} strokeWidth={3} />
+          </button>
+
+          <button
+            type="button"
+            className="menu-category-arrow menu-category-arrow-right"
+            onClick={() => moveCategory('next')}
+            aria-label="Ver categoría siguiente"
+          >
+            <ChevronRight size={44} strokeWidth={3} />
+          </button>
+
+          <div
+            key={active}
+            className={`menu-page menu-page-${pageDirection}`}
+            data-category={active}
+            aria-live="polite"
+          >
+            {activeView.sections.map((section, sectionIndex) => (
+              <div
+                key={`${active}-${section.label ?? sectionIndex}`}
+                className={`menu-page-section ${
+                  active === 'Bebidas' ? 'menu-page-section-drinks' : ''
+                }`}
+              >
+                {section.label && (
+                  <h3 className="menu-page-section-title">
+                    {section.label}
+                  </h3>
+                )}
+
+                <div
+                  className={`menu-product-list ${
+                    active === 'Tradicionales' || active === 'Alitas'
+                      ? 'menu-product-list-compact'
+                      : ''
+                  }`}
                 >
-                  <div className="menu-product-image">
-                    <Image
-                      src={item.image ?? activeView.fallbackImage}
-                      alt={item.name}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 700px) 82vw, (max-width: 1100px) 31vw, 290px"
-                    />
-                  </div>
+                  {section.items.map((item) => (
+                    <button
+                      key={`${active}-${section.label ?? 'main'}-${item.name}`}
+                      type="button"
+                      className="menu-product-row"
+                      onClick={() => openProduct(item, section.fallbackImage)}
+                      aria-label={`Ver ${item.name}`}
+                    >
+                      <span className="menu-product-row-main">
+                        <span className="menu-product-row-name">
+                          {item.name}
+                        </span>
+                        {item.description && active !== 'Alitas' && (
+                          <span className="menu-product-row-description">
+                            {item.description}
+                          </span>
+                        )}
+                      </span>
 
-                  <div className="menu-product-copy">
-                    <div className="menu-product-topline">
-                      <h3>{item.name}</h3>
-                      <span>{item.price}</span>
-                    </div>
+                      <span className="menu-product-row-price">
+                        {item.price}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
 
-                    {item.description && (
-                      <p>{item.description}</p>
-                    )}
-                  </div>
-                </article>
-              ))}
-            </div>
+            {active === 'Alitas' && (
+              <div className="menu-alitas-note">
+                <strong>Sabores:</strong> BBQ · Miel &amp; Mostaza · Maracuyá ·
+                Búfalo · Piña · Queso
+                <br />
+                <strong>Incluyen:</strong> papas · tomate · salsas
+              </div>
+            )}
 
-            <button
-              type="button"
-              className="menu-next-button"
-              onClick={showNext}
-              aria-label="Ver siguientes productos"
+            {active === 'Las 5 Esquinas' && (
+              <p className="menu-house-note">
+                Productos para llevar y seguir disfrutando Las 5 Esquinas en casa.
+              </p>
+            )}
+          </div>
+
+          <div className="menu-notebook-footer">
+            <a
+              href={whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="menu-whatsapp-button"
             >
-              <ChevronRight size={42} strokeWidth={2.6} />
-            </button>
+              Pedir por WhatsApp
+              <ArrowUpRight size={16} />
+            </a>
           </div>
         </div>
-
-        <div data-animate="up" style={{ transitionDelay: '160ms' }}>
-          <a
-            href={whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="menu-whatsapp-button"
-          >
-            Pedir por WhatsApp
-            <ArrowUpRight size={16} />
-          </a>
-        </div>
       </div>
+
+      {selectedProduct && (
+        <div
+          className="menu-product-modal-backdrop"
+          role="presentation"
+          onMouseDown={() => setSelectedProduct(null)}
+        >
+          <div
+            className="menu-product-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="menu-product-modal-title"
+            onMouseDown={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="menu-product-modal-close"
+              onClick={() => setSelectedProduct(null)}
+              aria-label="Cerrar producto"
+            >
+              <X size={22} />
+            </button>
+
+            <div className="menu-product-modal-image">
+              <Image
+                src={selectedProduct.resolvedImage}
+                alt={selectedProduct.name}
+                fill
+                className="object-cover"
+                sizes="(max-width: 700px) 92vw, 430px"
+              />
+            </div>
+
+            <div className="menu-product-modal-copy">
+              <p className="menu-product-modal-eyebrow">Las 5 Esquinas</p>
+
+              <div className="menu-product-modal-heading">
+                <h3 id="menu-product-modal-title">
+                  {selectedProduct.name}
+                </h3>
+                <span>{selectedProduct.price}</span>
+              </div>
+
+              {selectedProduct.description && (
+                <p className="menu-product-modal-description">
+                  {selectedProduct.description}
+                </p>
+              )}
+
+              <a
+                href={productWhatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="menu-product-modal-whatsapp"
+              >
+                Pedir este producto
+                <ArrowUpRight size={17} />
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
