@@ -1046,7 +1046,7 @@ function MenuSection() {
           </div>
 
           <p className="menu-touch-hint">
-            Toca un producto para conocerlo.
+            Toca un producto para conocerlo. "(Imágenes reales de los platos, pueden variar según disponibilidad.)"
           </p>
 
           <button
