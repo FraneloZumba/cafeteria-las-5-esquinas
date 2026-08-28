@@ -1814,7 +1814,7 @@ a:hover {
 
 .social-cup-label {
   margin-top: -0.15rem;
-  color: #241711;
+  color: #f7f5f4;
   font-family: var(--font-sue-ellen), cursive;
   font-size: clamp(2rem, 2.8vw, 3.25rem);
   line-height: 1;
