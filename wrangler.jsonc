@@ -1,6 +1,6 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "my-project",
+	"name": "las-5-esquinas",
 	"compatibility_date": "2026-08-28",
 	"compatibility_flags": [
 		"nodejs_compat"
