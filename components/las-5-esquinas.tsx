@@ -18,6 +18,8 @@ const heroImages = [
   '/5.png',
   '/6.png',
   '/7.png',
+  '/8.png',
+  '/9.png',
 ]
 
 const whatsapp = 'https://wa.me/593983202196'
@@ -104,7 +106,7 @@ const menu: Record<Category, MenuCategory> = {
       {
         name: 'Humita frita',
         price: '$1,50',
-        image: '/humita-frita.png',
+        image: '/humita.png',
       },
       {
         name: 'Tortilla de yuca',
@@ -137,17 +139,17 @@ const menu: Record<Category, MenuCategory> = {
         name: 'Bolón mixto',
         price: '$1,50',
         description: 'Queso + chicharrón',
-        image: '/bolon-mixto.png',
+        image: '/bolon.png',
       },
       {
         name: 'Bolón de queso o chicharrón + carne',
         price: '$3,00',
-        image: '/bolon-queso-chicharron-carne.png',
+        image: '/bolon.png',
       },
       {
         name: 'Bolón mixto + carne',
         price: '$3,25',
-        image: '/bolon-mixto-carne.png',
+        image: '/bolon.png',
       },
       {
         name: 'Bolón especial',
@@ -157,18 +159,25 @@ const menu: Record<Category, MenuCategory> = {
         image: '/bolon-especial.png',
       },
       {
+        name: 'Bolón de Las 5 Esquinas',
+        price: '$4,75',
+        description:
+          'Bolón mixto bañado en salsa de queso, con mozzarella, cheddar, tocino crocante, huevo frito y toque de sal prieta.',
+        image: '/bolon-las-5-esquinas.png',
+      },
+      {
         name: 'Bolón especial + huevo',
         price: '$3,25',
         description:
           'Queso o chicharrón + tocino + mozzarella + ensalada + huevo + salsas',
-        image: '/bolon-especial-huevo.png',
+        image: '/bolon-especial.png',
       },
       {
         name: 'Bolón especial mixto + huevo',
         price: '$3,50',
         description:
           'Mixto + tocino + mozzarella + huevo + ensalada + salsas',
-        image: '/bolon-especial-mixto-huevo.png',
+        image: '/bolon-especial.png',
       },
       {
         name: 'Tigrillo',
@@ -245,39 +254,39 @@ const menu: Record<Category, MenuCategory> = {
       'Elige tu cantidad y tu sabor. La porción de papas se ajusta al tamaño de cada combo.',
     items: [
       {
-        name: 'Combo 1 · 5 alitas',
+        name: 'Combo 1 --- 5 alitas',
         price: '$4,70',
         description:
           'BBQ · Miel & Mostaza · Maracuyá · Búfalo · Piña · Queso + papas + tomate + salsas',
-        image: '/combo-5-alitas.png',
+        image: '/combo-alitas.png',
       },
       {
-        name: 'Combo 2 · 10 alitas',
+        name: 'Combo 2 --- 10 alitas',
         price: '$8,90',
         description:
           'BBQ · Miel & Mostaza · Maracuyá · Búfalo · Piña · Queso + papas + tomate + salsas',
-        image: '/combo-10-alitas.png',
+        image: '/combo-alitas.png',
       },
       {
-        name: 'Combo 3 · 15 alitas',
+        name: 'Combo 3 --- 15 alitas',
         price: '$12,70',
         description:
           'BBQ · Miel & Mostaza · Maracuyá · Búfalo · Piña · Queso + papas + tomate + salsas',
-        image: '/combo-15-alitas.png',
+        image: '/combo-alitas.png',
       },
       {
-        name: 'Combo 4 · 20 alitas',
+        name: 'Combo 4 --- 20 alitas',
         price: '$16,70',
         description:
           'BBQ · Miel & Mostaza · Maracuyá · Búfalo · Piña · Queso + papas + tomate + salsas',
-        image: '/combo-20-alitas.png',
+        image: '/combo-alitas.png',
       },
       {
-        name: 'Combo 5 · 25 alitas',
+        name: 'Combo 5 --- 25 alitas',
         price: '$20,75',
         description:
           'BBQ · Miel & Mostaza · Maracuyá · Búfalo · Piña · Queso + papas + tomate + salsas',
-        image: '/combo-25-alitas.png',
+        image: '/combo-alitas.png',
       },
     ],
   },
@@ -322,32 +331,32 @@ const menu: Record<Category, MenuCategory> = {
       {
         name: 'Jugo de coco',
         price: '$1,25',
-        image: '/jugo-de-coco.png',
+        image: '/jugos.png',
       },
       {
         name: 'Jugo de mora',
         price: '$1,50',
-        image: '/jugo-de-mora.png',
+        image: '/jugos.png',
       },
       {
         name: 'Jugo de tomate',
         price: '$1,50',
-        image: '/jugo-de-tomate.png',
+        image: '/jugos.png',
       },
       {
         name: 'Batido de mora',
         price: '$1,75',
-        image: '/batido-de-mora.png',
+        image: '/batidos.png',
       },
       {
         name: 'Batido de fresa',
         price: '$1,75',
-        image: '/batido-de-fresa.png',
+        image: '/batidos.png',
       },
       {
         name: 'Batido de tomate',
         price: '$1,75',
-        image: '/batido-de-tomate.png',
+        image: '/batidos.png',
       },
       {
         name: 'Colas',
@@ -375,13 +384,13 @@ type MenuDisplaySection = {
 const las5EsquinasItems: MenuItem[] = [
   {
     name: 'Galletas',
-    price: 'Consultar',
+    price: 'Consultar en caja',
     description: 'Producto para llevar de Las 5 Esquinas.',
     image: '/galletas.png',
   },
   {
     name: 'Café Típico Aroma',
-    price: 'Consultar',
+    price: 'Consultar en caja',
     description: 'Café para llevar y preparar en casa.',
     image: '/cafe-tipico-aroma.png',
   },
@@ -781,9 +790,8 @@ function Hero() {
         {heroImages.map((image, index) => (
           <div
             key={image}
-            className={`hero-photo ${
-              index === heroImageIndex ? 'hero-photo-active' : ''
-            }`}
+            className={`hero-photo ${index === heroImageIndex ? 'hero-photo-active' : ''
+              }`}
             style={{ backgroundImage: `url("${image}")` }}
           />
         ))}
@@ -1046,7 +1054,7 @@ function MenuSection() {
           </div>
 
           <p className="menu-touch-hint">
-            Toca un producto para conocerlo. "(Imágenes reales de los platos, pueden variar según disponibilidad.)"
+            Toca un producto para conocerlo. (Imágenes referenciales de los platos, pueden variar según disponibilidad.)
           </p>
 
           <button
@@ -1087,8 +1095,8 @@ function MenuSection() {
 
                 <div
                   className={`menu-product-list ${active === 'Tradicionales' || active === 'Alitas'
-                      ? 'menu-product-list-compact'
-                      : ''
+                    ? 'menu-product-list-compact'
+                    : ''
                     }`}
                 >
                   {section.items.map((item) => (
